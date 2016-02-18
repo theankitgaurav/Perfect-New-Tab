@@ -1,0 +1,22 @@
+{
+	"manifest_version": 2,
+	"name": "My New Tab",
+	"manifest_version": 2,
+	"version": "1.0",
+	"chrome_url_overrides" : {
+	    "newtab": "my_new_tab.html"
+	  },
+	"background": {
+	    "scripts": ["new-tab.js"],
+	    "persistent": false
+	  },
+  	"permissions" : [
+  		"tabs",
+  		"bookmarks",
+  		"storage",
+  		"downloads",
+  		"history",
+  		"sessions",
+  		"topSites"
+  	]
+}

@@ -1,15 +1,18 @@
 {
 	"manifest_version": 2,
-	"name": "My New Tab",
+	"name": "Perfect Tab",
 	"manifest_version": 2,
 	"version": "1.0",
 	"chrome_url_overrides" : {
-	    "newtab": "my_new_tab.html"
+	    "newtab": "perfect-tab.html"
 	  },
 	"background": {
-	    "scripts": ["new-tab.js"],
+	    "scripts": ["perfect-tab.js"],
 	    "persistent": false
 	  },
+	// "icons": { "16": "icons/icon16.png",
+ //           "32": "icons/icon32.png",
+ //          "128": "icons/icon128.png" },
   	"permissions" : [
   		"tabs",
   		"bookmarks",
@@ -17,6 +20,7 @@
   		"downloads",
   		"history",
   		"sessions",
-  		"topSites"
+  		"topSites",
+  		"chrome://favicon/"
   	]
 }

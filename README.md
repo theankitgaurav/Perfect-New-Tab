@@ -1,6 +1,12 @@
 # Perfect-tab
 A fast extension for Google Chrome with innovative features and low memory-consumption
 
+# How to use
+1. Download and extract the zip of the extension from [here][download-zip].
+2. Go the Chrome Extensions page.
+3. Check the developer mode option.
+4. Drag and drop the extracted folder there.
+
 # Contributions
 Changes and improvements are more than welcome!
 
@@ -10,3 +16,5 @@ If you can, please make sure the game fully works before sending the PR, as that
 
 # License
 Perfect-tab ( repository name "perfect-tab" ) is licensed under the MIT license.
+
+[download-zip]: https://github.com/ankitgaurav/perfect-tab/archive/master.zip

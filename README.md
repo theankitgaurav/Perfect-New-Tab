@@ -1,7 +1,8 @@
 # Perfect-tab
 A fast extension for Google Chrome with innovative features and low memory-consumption
 
-![Screenshot](https://github.com/ankitgaurav/perfect-tab/blob/master/Screenshot%202016-03-13%2022.31.03.png)
+#Screenshot
+![Screenshot](https://github.com/ankitgaurav/ankitgaurav.github.io/blob/master/Screenshot%202016-03-13%2022.31.03.png)
 
 # How to use
 1. Download and extract the zip of the extension from [here][download-zip].

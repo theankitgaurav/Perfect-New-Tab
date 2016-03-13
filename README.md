@@ -4,8 +4,7 @@ A fast extension for Google Chrome with innovative features and low memory-consu
 # How to use
 1. Download and extract the zip of the extension from [here][download-zip].
 2. Go the Chrome Extensions page.
-3. Check the developer mode option.
-4. Drag and drop the extracted folder there.
+3. Drag and drop the extracted folder there.
 
 # Contributions
 Changes and improvements are more than welcome!

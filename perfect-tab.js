@@ -1,10 +1,8 @@
 //Controllers logic here
 var app = angular.module('newTab', []);
-
 //Configuration to whitelist favicon src
 app.config( [ '$compileProvider', function( $compileProvider ) { 
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|chrome):/);}]);
-
 //Frequent Sites logic
 app.controller('frequentSitesController', function($scope){
 	$scope.frequent_sites = [];
@@ -14,8 +12,6 @@ app.controller('frequentSitesController', function($scope){
 		}
 	})
 });
-
-
 //Recent Bookmarks logic
 app.controller('recentBookmarksController', function($scope){
     $scope.recent_bookmarks = [];
@@ -26,7 +22,6 @@ app.controller('recentBookmarksController', function($scope){
 		}
     })
 });
-
 //ToDo list logic
 app.controller('todosController', function($scope) {
     $scope.todos = [];
@@ -41,7 +36,6 @@ app.controller('todosController', function($scope) {
     $scope.updateStorage = function(){
         chrome.storage.sync.set({'todoitems': $scope.todos}, function() {});
     }
-
     //function to add items
     $scope.addTodo = function(){
     	var id = $scope.todos.length+1;
@@ -56,7 +50,6 @@ app.controller('todosController', function($scope) {
     	$scope.todoText = "";
         $scope.updateStorage();
     }
-
     //function to clear done items
     $scope.clearDone = function(){
     	var oldTodos = $scope.oldTodos = $scope.todos;
@@ -76,8 +69,6 @@ app.controller('todosController', function($scope) {
         document.getElementById("trash").style.visibility = "visible"
     }
 });
-
-
 //Footer logic
 app.controller('footerController', function($scope){
 	$scope.openHistory = function(){
@@ -95,4 +86,7 @@ app.controller('footerController', function($scope){
 	$scope.restorePreviousSession = function(){
 		chrome.sessions.restore();
 	}
+    $scope.openChromeApps = function(){
+        chrome.tabs.update({'url': 'chrome://apps'});
+    }
 });

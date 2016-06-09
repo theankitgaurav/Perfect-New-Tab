@@ -45,11 +45,12 @@ ul{
 	overflow-y:auto;
 }
 a : hover{
-	color: inherit;
+	color: #3c763d;
 	text-decoration: none;	
 }
 
 a{
+	color: inherit;
 	display: block;
 }
 #trash{

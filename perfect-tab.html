@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="newTab" ng-csp="">
 <head>
-	<title>Perfect Tab</title>
+	<title>New Tab</title>
 	<link rel="stylesheet" href="bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="styles.css">
 </head>
@@ -35,7 +35,7 @@
 					</div>
 				</div>
 				<div class="col-xs-4">
-					<div class="panel panel-danger" ng-controller="todosController">
+					<div class="panel panel-success" ng-controller="todosController">
 						<div class="panel-heading text-uppercase">
 							<span class="glyphicon glyphicon-check"></span> &nbsp; To Do ( {{ ( todos | filter: {done: false}).length}} pending	)
 							<span class="glyphicon glyphicon-trash pull-right" title="Clear Done" ng-click="clearDone()" id="trash"></span>
@@ -48,7 +48,7 @@
 										<button class="btn btn-success" ng-click="addTodo()" style="display: none;">Add</button>
 									</form>
 								</li>
-								<li ng-repeat="todoitems in todos track by $index">
+								<li ng-repeat="todoitems in todos">
 									<input  ng-change="todoChange()" type="checkbox" ng-model="todoitems.done"></input>
 									<span class="done-{{todoitems.done}}" title="{{todoitems.text}}"> {{ todoitems.text }} </span>
 								</li>
@@ -76,7 +76,7 @@
 						<span class="text-muted"><strong>Apps</strong></span>
 					</div>
 					<div class="col-md-2 btn" ng-click="openBookmarks()">
-						<span class="glyphicon glyphicon-star footer-glyphicon text-success"></span>
+						<span class="glyphicon glyphicon-bookmark footer-glyphicon text-success"></span>
 						<br><br>
 						<span class="text-muted"><strong>Bookmarks</strong></span>
 					</div>

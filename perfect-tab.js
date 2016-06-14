@@ -31,7 +31,6 @@ app.controller('todosController', function($scope) {
             $scope.$apply()
         }
     })
-
     //function to sync with chrome storage
     $scope.updateStorage = function(){
         chrome.storage.sync.set({'todoitems': $scope.todos}, function() {});
@@ -58,15 +57,15 @@ app.controller('todosController', function($scope) {
     		if(todo.done === false) $scope.todos.push(todo);
     	});
         $scope.updateStorage();
-        document.getElementById("trash").style.visibility = "hiddden"
+        document.getElementById("trash").style.visibility = "hidden"
     };
     //function for calculating total todos 
     $scope.getTotalTodos = function(){
     	return $scope.todos.length;
     };
 
-    $scope.todoChange = function(){
-        document.getElementById("trash").style.visibility = "visible"
+    $scope.todoChange = function(id){
+        document.getElementById("trash").style.visibility = "visible";
     }
 });
 //Footer logic

@@ -6,7 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-<div id= "main">
+<div id= "main" style="background: url(giftly.png);background-repeat: repeat;">
 	<div class="container">
 		<div class="row text-muted">
 			<div class="container">
@@ -48,7 +48,7 @@
 										<button class="btn btn-success" ng-click="addTodo()" style="display: none;">Add</button>
 									</form>
 								</li>
-								<li ng-repeat="todoitems in todos">
+								<li ng-repeat="todoitems in todos" class="todos_items">
 									<input  ng-change="todoChange()" type="checkbox" ng-model="todoitems.done"></input>
 									<span class="done-{{todoitems.done}}" title="{{todoitems.text}}"> {{ todoitems.text }} </span>
 								</li>

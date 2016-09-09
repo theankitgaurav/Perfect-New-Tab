@@ -10,9 +10,9 @@
 	    "scripts": ["perfect-tab.js"],
 	    "persistent": false
 	  },
-	// "icons": { "16": "icons/icon16.png",
- //           "32": "icons/icon32.png",
- //          "128": "icons/icon128.png" },
+	"icons": { "16": "icon.png",
+           "32": "icon.png",
+          "128": "icon.png" },
   	"permissions" : [
   		"tabs",
   		"bookmarks",

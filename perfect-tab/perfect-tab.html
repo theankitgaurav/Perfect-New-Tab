@@ -1,107 +1,115 @@
 <!DOCTYPE html>
 <html ng-app="newTab" ng-csp="">
+
 <head>
-	<title>New Tab</title>
-	<link rel="stylesheet" href="bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="styles.css">
+    <title>New Tab</title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
+
 <body>
-<div id= "main" style="background: url(giftly.png);background-repeat: repeat;">
-	<div class="container">
-		<div class="row text-muted">
-			<div class="container">
-				<div class="col-xs-4 url-apps">
-					<div class="panel panel-success" ng-controller="frequentSitesController">
-						<div class="panel-heading text-uppercase"><span class="glyphicon glyphicon-stats"></span> &nbsp; Frequent Sites</div>
-						<div class="panel-body">
-							<ul>
-								<li ng-repeat="sites in frequent_sites" title="{{sites.title}}">
-									<a class=" text-muted" href="{{sites.url}}"><img src="chrome://favicon/{{sites.url}}"> {{sites.title}}</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-4 url-apps">
-					<div class="panel panel-success" ng-controller="recentBookmarksController">
-						<div class="panel-heading text-uppercase"><span class="glyphicon glyphicon-bookmark"></span> &nbsp; Recent Bookmarks</div>
-						<div class="panel-body">
-							<div class="panel-body-child">
-								<ul>
-									<li ng-repeat="bookmarks in recent_bookmarks | orderBy: bookmarks.timeAdded"><a class=" text-muted" href="{{bookmarks.url}}" title="{{bookmarks.title}}">{{bookmarks.title}}</a></li>
-								</ul>							
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-4">
-					<div class="panel panel-success" ng-controller="todosController">
-						<div class="panel-heading text-uppercase">
-							<span class="glyphicon glyphicon-check"></span> &nbsp; To Do ( {{ ( todos | filter: {done: false}).length}} pending	)
-							<span class="glyphicon glyphicon-trash pull-right" title="Clear Done" ng-click="clearDone()" id="trash"></span>
-						</div>
-						<div class="panel-body">
-							<ul>
-								<li>
-									<form >
-										<input ng-model="todoText" ng-model-instant placeholder="What needs to be done" class="form-control"></input>
-										<button class="btn btn-success" ng-click="addTodo()" style="display: none;">Add</button>
-									</form>
-								</li>
-								<li ng-repeat="todoitems in todos" class="todos_items">
-									<input  ng-change="todoChange()" type="checkbox" ng-model="todoitems.done"></input>
-									<span class="done-{{todoitems.done}}" title="{{todoitems.text}}"> {{ todoitems.text }} </span>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<div id="footer" ng-controller="footerController">
-	<div class="container">
-		<div class="row">
-			<div class="container text-muted">
-				<center>
-					<div class="col-md-2 btn" ng-click="restorePreviousSession()">
-						<span class="glyphicon glyphicon-repeat footer-glyphicon text-success"></span>
-						<br><br>
-						<span class="text-muted"><strong>Reopen Closed Tabs</strong></span>
-					</div>
-					<div class="col-md-2 btn" ng-click="openChromeApps()">
-						<span class="glyphicon glyphicon-th footer-glyphicon text-success"></span>
-						<br><br>
-						<span class="text-muted"><strong>Apps</strong></span>
-					</div>
-					<div class="col-md-2 btn" ng-click="openBookmarks()">
-						<span class="glyphicon glyphicon-bookmark footer-glyphicon text-success"></span>
-						<br><br>
-						<span class="text-muted"><strong>Bookmarks</strong></span>
-					</div>
-					
-					<div class="col-md-2 btn" ng-click="openHistory()">
-						<span class="glyphicon glyphicon-time footer-glyphicon text-success"></span>
-						<br><br>
-						<span class="text-muted"><strong>History</strong></span>
-					</div>
-					<div class="col-md-2 btn" ng-click="openDownloads()">
-						<span class="glyphicon glyphicon-download-alt footer-glyphicon text-success"></span>
-						<br><br>
-						<span class="text-muted"><strong>Downloads</strong></span>
-					</div>
-					<div class="col-md-2 btn" ng-click="openSettings()">
-						<span class="glyphicon glyphicon-cog footer-glyphicon text-success"></span>
-						<br><br>
-						<span class="text-muted"><strong>Settings</strong></span>
-					</div>
-				</center>
-			</div>
-		</div>
-	</div>
-</div>
-<script type="text/javascript" src="angular.min.js"></script>
-<script type="text/javascript" src="perfect-tab.js"></script>
+    <div id="main" style="background: url(giftly.png);background-repeat: repeat;">
+        <div class="container">
+            <div class="row text-muted">
+                <div class="container">
+                    <div class="col-xs-4 url-apps">
+                        <div class="panel panel-success" ng-controller="frequentSitesController">
+                            <div class="panel-heading text-uppercase"><span class="glyphicon glyphicon-stats"></span> &nbsp; Frequent Sites</div>
+                            <div class="panel-body">
+                                <ul>
+                                    <li ng-repeat="sites in frequent_sites" title="{{sites.title}}">
+                                        <a class=" text-muted" href="{{sites.url}}"><img src="chrome://favicon/{{sites.url}}">&nbsp;&nbsp;{{sites.title}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4 url-apps">
+                        <div class="panel panel-success" ng-controller="recentBookmarksController">
+                            <div class="panel-heading text-uppercase"><span class="glyphicon glyphicon-bookmark"></span> &nbsp; Recent Bookmarks</div>
+                            <div class="panel-body">
+                                <div class="panel-body-child">
+                                    <ul>
+                                        <li ng-repeat="bookmarks in recent_bookmarks | orderBy: bookmarks.timeAdded"><a class=" text-muted" href="{{bookmarks.url}}" title="{{bookmarks.title}}"><img src="chrome://favicon/{{bookmarks.url}}">&nbsp;&nbsp;{{bookmarks.title}}</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="panel panel-success" ng-controller="todosController">
+                            <div class="panel-heading text-uppercase">
+                                <span class="glyphicon glyphicon-check"></span> &nbsp; To Do ( {{ ( todos | filter: {done: false}).length}} pending )
+                                <span class="glyphicon glyphicon-trash pull-right" title="Clear Done" ng-click="clearDone()" id="trash"></span>
+                            </div>
+                            <div class="panel-body">
+                                <ul>
+                                    <li>
+                                        <form>
+                                            <input ng-model="todoText" ng-model-instant placeholder="What needs to be done" class="form-control"></input>
+                                            <button class="btn btn-success" ng-click="addTodo()" style="display: none;">Add</button>
+                                        </form>
+                                    </li>
+                                    <li ng-repeat="todoitems in todos" class="todos_items">
+                                        <input ng-change="todoChange()" type="checkbox" ng-model="todoitems.done"></input>
+                                        <span class="done-{{todoitems.done}}" title="{{todoitems.text}}"> {{ todoitems.text }} </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="footer" ng-controller="footerController">
+        <div class="container">
+            <div class="row">
+                <div class="container text-muted">
+                    <center>
+                        <div class="col-md-2 btn" ng-click="restorePreviousSession()">
+                            <span class="glyphicon glyphicon-repeat footer-glyphicon text-success"></span>
+                            <br>
+                            <br>
+                            <span class="text-muted"><strong>Reopen Closed Tabs</strong></span>
+                        </div>
+                        <div class="col-md-2 btn" ng-click="openChromeApps()">
+                            <span class="glyphicon glyphicon-th footer-glyphicon text-success"></span>
+                            <br>
+                            <br>
+                            <span class="text-muted"><strong>Apps</strong></span>
+                        </div>
+                        <div class="col-md-2 btn" ng-click="openBookmarks()">
+                            <span class="glyphicon glyphicon-bookmark footer-glyphicon text-success"></span>
+                            <br>
+                            <br>
+                            <span class="text-muted"><strong>Bookmarks</strong></span>
+                        </div>
+                        <div class="col-md-2 btn" ng-click="openHistory()">
+                            <span class="glyphicon glyphicon-time footer-glyphicon text-success"></span>
+                            <br>
+                            <br>
+                            <span class="text-muted"><strong>History</strong></span>
+                        </div>
+                        <div class="col-md-2 btn" ng-click="openDownloads()">
+                            <span class="glyphicon glyphicon-download-alt footer-glyphicon text-success"></span>
+                            <br>
+                            <br>
+                            <span class="text-muted"><strong>Downloads</strong></span>
+                        </div>
+                        <div class="col-md-2 btn" ng-click="openSettings()">
+                            <span class="glyphicon glyphicon-cog footer-glyphicon text-success"></span>
+                            <br>
+                            <br>
+                            <span class="text-muted"><strong>Settings</strong></span>
+                        </div>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="angular.min.js"></script>
+    <script type="text/javascript" src="perfect-tab.js"></script>
 </body>
+
 </html>

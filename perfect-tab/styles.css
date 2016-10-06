@@ -1,10 +1,10 @@
 #main{
 	padding-top: 80px;
 	padding-bottom: 50px;
-	background-color: #F2F2F2;
+	background-color: #537780;
 }
 #footer{
-	background-color: #EAEAEA;
+	background-color: #4A2C2C;
 	position:absolute;
 	bottom: 0px;
 	width:100%;
@@ -59,4 +59,7 @@ a{
 }
 .todos_items{
 	text-transform: capitalize;
+}
+.btn:hover{
+	color: #777;
 }

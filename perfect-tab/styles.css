@@ -63,3 +63,8 @@ a{
 .btn:hover{
 	color: #777;
 }
+a:hover, a:focus {
+	color: #666;
+	font-weight: 600;
+	text-decoration: none;
+}

@@ -60,8 +60,11 @@ a{
 .todos_items{
 	text-transform: capitalize;
 }
+.btn{
+	color: #BBB;
+}
 .btn:hover{
-	color: #777;
+	color: #FFF;
 }
 a:hover, a:focus {
 	color: #666;

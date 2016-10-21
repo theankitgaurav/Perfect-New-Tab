@@ -66,6 +66,10 @@ a{
 .btn:hover{
 	color: #FFF;
 }
+.btn:active{
+	box-shadow: none;
+	webkit-box-shadow: none;
+}
 a:hover, a:focus {
 	color: #666;
 	font-weight: 600;

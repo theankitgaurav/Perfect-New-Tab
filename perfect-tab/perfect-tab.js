@@ -40,6 +40,11 @@ app.controller('todosController', function($scope) {
     $scope.addTodo = function() {
             var id = $scope.todos.length + 1;
             var text = $scope.todoText;
+            if(text.trim()==""){
+                $scope.todoText = "";
+                return;
+            }
+
             var todo = {
                 "id": id,
                 "text": text,

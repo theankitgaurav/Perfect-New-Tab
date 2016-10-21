@@ -40,7 +40,7 @@
                         <div class="panel panel-success" ng-controller="todosController">
                             <div class="panel-heading text-uppercase">
                                 <span class="glyphicon glyphicon-check"></span> &nbsp; To Do ( {{ ( todos | filter: {done: false}).length}} pending )
-                                <span class="glyphicon glyphicon-trash pull-right" title="Clear Done" ng-click="clearDone()" id="trash"></span>
+                                <span class="glyphicon glyphicon-trash text-muted pull-right" title="Clear Done" ng-click="clearDone()" id="trash"></span>
                             </div>
                             <div class="panel-body">
                                 <ul>

@@ -12,47 +12,46 @@
         <div class="container">
             <div class="row text-muted">
                 <div class="container">
-                    <div class="col-xs-4 url-apps">
-                        <div class="panel panel-success" ng-controller="frequentSitesController">
-                            <div class="panel-heading text-uppercase"><span class="glyphicon glyphicon-stats"></span> &nbsp; Frequent Sites</div>
+                    <div class="col-xs-4 url-apps" id="f_sites">
+                        <div class="panel panel-success">
+                            <div class="panel-heading text-uppercase"><span class="glyphicon glyphicon-stats"></span> &nbsp; {{app_name}}</div>
                             <div class="panel-body">
                                 <ul>
-                                    <li ng-repeat="sites in frequent_sites" title="{{sites.title}}">
-                                        <a class=" text-muted" href="{{sites.url}}"><img src="chrome://favicon/{{sites.url}}">&nbsp;&nbsp;{{sites.title}}</a>
+                                    <li v-for="sites in fsArr" v-bind:sites="sites" title="{{sites.title}}">
+                                        <a class=" text-muted" href="{{sites.url}}"><img v-bind:src="sites.faviconUrl">&nbsp;&nbsp;{{sites.title}}</a>
                                     </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xs-4 url-apps">
+                    <div class="col-xs-4 url-apps" id="r_bookmarks">
                         <div class="panel panel-success" ng-controller="recentBookmarksController">
-                            <div class="panel-heading text-uppercase"><span class="glyphicon glyphicon-bookmark"></span> &nbsp; Recent Bookmarks</div>
+                            <div class="panel-heading text-uppercase"><span class="glyphicon glyphicon-bookmark"></span> &nbsp; {{app_name}}</div>
                             <div class="panel-body">
                                 <div class="panel-body-child">
                                     <ul>
-                                        <li ng-repeat="bookmarks in recent_bookmarks | orderBy: bookmarks.timeAdded"><a class=" text-muted" href="{{bookmarks.url}}" title="{{bookmarks.title}}"><img src="chrome://favicon/{{bookmarks.url}}">&nbsp;&nbsp;{{bookmarks.title}}</a></li>
+                                        <li v-for="bookmark in rbArr" v-bind:bookmark="bookmark">
+                                            <a class=" text-muted" href="{{bookmark.url}}" title="{{bookmark.title}}"><img v-bind:src="bookmark.faviconUrl">&nbsp;&nbsp;{{bookmark.title}}</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-xs-4">
-                        <div class="panel panel-success" ng-controller="todosController">
-                            <div class="panel-heading text-uppercase">
-                                <span class="glyphicon glyphicon-check"></span> &nbsp; To Do ( {{ ( todos | filter: {done: false}).length}} pending )
-                                <span class="glyphicon glyphicon-trash text-muted pull-right" title="Clear Done" ng-click="clearDone()" id="trash"></span>
+                        <div class="panel panel-success" ng-controller="todosController" id="todos_app">
+                            <div class="panel-heading">
+                                <span class="glyphicon glyphicon-check"></span> &nbsp; <span class="text-uppercase">{{app_name}}</span> ( {{todosArr.length}} pending )
+                                <span class="glyphicon glyphicon-trash text-muted pull-right" title="Clear Done" id="trash"></span>
                             </div>
                             <div class="panel-body">
-                                <ul>
-                                    <li>
-                                        <form>
-                                            <input ng-model="todoText" ng-model-instant placeholder="What needs to be done" class="form-control"></input>
-                                            <button class="btn btn-success" ng-click="addTodo()" style="display: none;">Add</button>
-                                        </form>
-                                    </li>
-                                    <li ng-repeat="todoitems in todos track by $index" class="todos_items">
-                                        <input ng-change="todoChange()" type="checkbox" ng-model="todoitems.done"></input>
-                                        <span class="done-{{todoitems.done}}" title="{{todoitems.text}}"> {{ todoitems.text }} </span>
+                                <form v-on:submit.prevent="addTodo">
+                                    <input v-model="todoText" placeholder="What needs to be done" class="form-control" />
+                                </form>
+                                <ul v-if="todosArr.length">
+                                    <li v-for="todoitem in todosArr" v-bind:todoitems="todoitem" class="todos_items">
+                                        <input type="checkbox" v-model="done"></input>
+                                        <span class="done-{{todoitem.done}}" title="{{todoitem.text}}"> {{ todoitem.text }} </span>
                                     </li>
                                 </ul>
                             </div>
@@ -62,42 +61,42 @@
             </div>
         </div>
     </div>
-    <div id="footer" ng-controller="footerController">
+    <div id="footer" ng-controller="footerController" id="footer">
         <div class="container">
             <div class="row">
                 <div class="container" style="color:white">
                     <center>
-                        <div class="col-md-2 btn" ng-click="restorePreviousSession()">
+                        <div class="col-md-2 btn" v-on:click="restorePreviousSession">
                             <span class="glyphicon glyphicon-repeat footer-glyphicon"></span>
                             <br>
                             <br>
                             <span><strong>Reopen Closed Tabs</strong></span>
                         </div>
-                        <div class="col-md-2 btn" ng-click="openChromeApps()">
+                        <div class="col-md-2 btn" v-on:click="openChromeApps">
                             <span class="glyphicon glyphicon-th footer-glyphicon"></span>
                             <br>
                             <br>
                             <span><strong>Apps</strong></span>
                         </div>
-                        <div class="col-md-2 btn" ng-click="openBookmarks()">
+                        <div class="col-md-2 btn" v-on:click="openBookmarks" ng-click="openBookmarks()">
                             <span class="glyphicon glyphicon-bookmark footer-glyphicon"></span>
                             <br>
                             <br>
                             <span><strong>Bookmarks</strong></span>
                         </div>
-                        <div class="col-md-2 btn" ng-click="openHistory()">
+                        <div class="col-md-2 btn" v-on:click="openHistory">
                             <span class="glyphicon glyphicon-time footer-glyphicon"></span>
                             <br>
                             <br>
                             <span><strong>History</strong></span>
                         </div>
-                        <div class="col-md-2 btn" ng-click="openDownloads()">
+                        <div class="col-md-2 btn" v-on:click="openDownloads">
                             <span class="glyphicon glyphicon-download-alt footer-glyphicon "></span>
                             <br>
                             <br>
                             <span><strong>Downloads</strong></span>
                         </div>
-                        <div class="col-md-2 btn" ng-click="openSettings()">
+                        <div class="col-md-2 btn" v-on:click="openSettings">
                             <span class="glyphicon glyphicon-cog footer-glyphicon"></span>
                             <br>
                             <br>
@@ -108,8 +107,8 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="angular.min.js"></script>
-    <script type="text/javascript" src="perfect-tab.js"></script>
+    <script type="text/javascript" src="vue.js"></script>
+    <script type="text/javascript" src="main.js"></script>
 </body>
 
 </html>

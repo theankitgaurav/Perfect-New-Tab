@@ -1,4 +1,4 @@
-# Perfect-tab
+# Perfect-tab (VueJS version)
 A fast extension for Google Chrome with innovative features and low memory-consumption
 
 #Screenshot

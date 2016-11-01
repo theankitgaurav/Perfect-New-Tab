@@ -41,19 +41,20 @@
                     <div class="col-xs-4">
                         <div class="panel panel-success" ng-controller="todosController" id="todos_app">
                             <div class="panel-heading">
-                                <span class="glyphicon glyphicon-check"></span> &nbsp; <span class="text-uppercase">{{app_name}}</span> ( {{todosArr.length}} pending )
+                                <span class="glyphicon glyphicon-check"></span> &nbsp; <span class="text-uppercase">{{app_name}}</span> ( {{todos.length}} pending )
                                 <span class="glyphicon glyphicon-trash text-muted pull-right" title="Clear Done" id="trash"></span>
                             </div>
                             <div class="panel-body">
                                 <form v-on:submit.prevent="addTodo">
                                     <input v-model="todoText" placeholder="What needs to be done" class="form-control" />
                                 </form>
-                                <ul v-if="todosArr.length">
-                                    <li v-for="todoitem in todosArr" v-bind:todoitems="todoitem" class="todos_items">
-                                        <input type="checkbox" v-model="done"></input>
-                                        <span class="done-{{todoitem.done}}" title="{{todoitem.text}}"> {{ todoitem.text }} </span>
+                                <ul v-if="todos.length">
+                                    <li v-for="todoitem in todos" v-bind:todoitems="todoitem" class="todos_items">
+                                        <input type="checkbox" id="{{todoitem.todoId}}" v-model="doneItems" value="{{todoitem.todoId}}" v-on:click="checkItems">
+                                        <label for="{{todoitem.todoId}}" class="done-{{todoitem.done}}" title="{{todoitem.text}}" style="font-weight: normal;margin-bottom: 0px;"> {{ todoitem.text }} </label>
                                     </li>
                                 </ul>
+                                <p>{{doneItems}}</p>
                             </div>
                         </div>
                     </div>

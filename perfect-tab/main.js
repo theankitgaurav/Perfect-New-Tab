@@ -31,18 +31,43 @@ var r_bookmarks = new Vue({
 
 
 //ToDo list logic
+var STORAGE_KEY = 'chromeTodoItems';
+var todoStorage = {
+  fetch: function () {
+    var todos = []
+    chrome.storage.sync.get("chromeTodoItems", function(keys) {
+            if (keys.chromeTodoItems != null) {
+                todos = keys.chromeTodoItems;
+            }
+        })
+    todos.forEach(function (todo, index) {
+      todo.id = index
+    })
+    todoStorage.uid = todos.length
+    return todos
+  },
+  save: function (todos) {
+    chrome.storage.sync.set({ "chromeTodoItems": todos }, function() {
+        if(chrome.runtime.lastError){
+            console.error("Hii")
+        }
+    });
+  }
+}
 var todos_app = new Vue({
     el: "#todos_app",
     data: {
         app_name: "Todos",
-        STORAGE_KEY: "perfect-tab-todos",
-        todosArr: JSON.parse(localStorage.getItem(this.STORAGE_KEY) || '[]'),
-        todoText: ""
+        todos: todoStorage.fetch(),
+        todoText: "",
+        doneItems: []
     },
     watch: {
-        todosArr: {
+        todos: {
             deep: true,
-            handler: this.save
+            handler: function(todos){
+                todoStorage.save(todos)
+            }
         }
     },
     methods: {
@@ -53,17 +78,19 @@ var todos_app = new Vue({
                 return;
             }
             var todo = {
-                "id": this.todosArr.length + 1,
+                "todoId": todoStorage.uid++,
                 "text": text,
                 "done": false,
                 "timeAdded": Date.now()
             }
-            this.todosArr.push(todo)
+            this.todos.push(todo)
             this.todoText = "";
-            this.save(this.todosArr);
         },
         save: function(todos) {
             localStorage.setItem(this.STORAGE_KEY, JSON.stringify(todos));
+        },
+        checkItems: function() {
+            document.getElementById("trash").style.visibility = "visible";
         }
     }
 })

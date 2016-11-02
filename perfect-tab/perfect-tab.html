@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="newTab" ng-csp="">
+<html>
 
 <head>
     <title>New Tab</title>
@@ -25,7 +25,7 @@
                         </div>
                     </div>
                     <div class="col-xs-4 url-apps" id="r_bookmarks">
-                        <div class="panel panel-success" ng-controller="recentBookmarksController">
+                        <div class="panel panel-success">
                             <div class="panel-heading text-uppercase"><span class="glyphicon glyphicon-bookmark"></span> &nbsp; {{app_name}}</div>
                             <div class="panel-body">
                                 <div class="panel-body-child">
@@ -39,7 +39,7 @@
                         </div>
                     </div>
                     <div class="col-xs-4">
-                        <div class="panel panel-success" ng-controller="todosController" id="todos_app">
+                        <div class="panel panel-success" id="todos_app">
                             <div class="panel-heading">
                                 <span class="glyphicon glyphicon-check"></span> &nbsp; <span class="text-uppercase">{{app_name}}</span> ( {{todos.length}} pending )
                                 <span class="glyphicon glyphicon-trash text-muted pull-right" title="Clear Done" id="trash"></span>
@@ -62,7 +62,7 @@
             </div>
         </div>
     </div>
-    <div id="footer" ng-controller="footerController" id="footer">
+    <div id="footer" id="footer">
         <div class="container">
             <div class="row">
                 <div class="container" style="color:white">
@@ -79,7 +79,7 @@
                             <br>
                             <span><strong>Apps</strong></span>
                         </div>
-                        <div class="col-md-2 btn" v-on:click="openBookmarks" ng-click="openBookmarks()">
+                        <div class="col-md-2 btn" v-on:click="openBookmarks">
                             <span class="glyphicon glyphicon-bookmark footer-glyphicon"></span>
                             <br>
                             <br>
@@ -111,5 +111,4 @@
     <script type="text/javascript" src="vue.js"></script>
     <script type="text/javascript" src="main.js"></script>
 </body>
-
 </html>

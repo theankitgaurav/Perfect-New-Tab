@@ -17,7 +17,7 @@
                             <div class="panel-heading text-uppercase"><span class="glyphicon glyphicon-stats"></span> &nbsp; {{app_name}}</div>
                             <div class="panel-body">
                                 <ul>
-                                    <li v-for="sites in fsArr" v-bind:sites="sites" title="{{sites.title}}">
+                                    <li v-for="sites in frequentSitesArray" v-bind:sites="sites" title="{{sites.title}}">
                                         <a class=" text-muted" href="{{sites.url}}"><img v-bind:src="sites.faviconUrl">&nbsp;&nbsp;{{sites.title}}</a>
                                     </li>
                                 </ul>
@@ -30,7 +30,7 @@
                             <div class="panel-body">
                                 <div class="panel-body-child">
                                     <ul>
-                                        <li v-for="bookmark in rbArr" v-bind:bookmark="bookmark">
+                                        <li v-for="bookmark in recentBookmarksArray" v-bind:bookmark="bookmark">
                                             <a class=" text-muted" href="{{bookmark.url}}" title="{{bookmark.title}}"><img v-bind:src="bookmark.faviconUrl">&nbsp;&nbsp;{{bookmark.title}}</a>
                                         </li>
                                     </ul>

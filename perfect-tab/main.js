@@ -59,12 +59,13 @@ var todos_app = new Vue({
         var self = this
         chrome.storage.sync.get('chromeTodoItems', function(items) {
             if (!chrome.runtime.lastError) {
-                console.error("Runtime Error while fetching data from Chrome Storage")
                 if (items.chromeTodoItems != null) {
                     self.todos = items.chromeTodoItems
                 } else {
                     console.log('No todo items in Chrome Storage')
                 }
+            } else {
+                console.error("Runtime Error while fetching data from Chrome Storage")
             }
         })
         self.todos.forEach(function(todo, index) {

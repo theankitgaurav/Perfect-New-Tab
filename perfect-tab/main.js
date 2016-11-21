@@ -1,8 +1,13 @@
+Vue.config.devtools = true
 // Frequent Sites logic
 var frequentSitesArray = []
-chrome.topSites.get(function(callback) {
-    for (var i = 0; i < 20; i++) {
-        frequentSitesArray.push({ 'title': callback[i].title, 'url': callback[i].url, 'faviconUrl': 'chrome://favicon/' + callback[i].url })
+chrome.topSites.get((callback)=>{
+    for (var i = 0; i < 10; i++) {
+        frequentSitesArray.push({
+          'title': callback[i].title,
+          'url': callback[i].url,
+          'faviconUrl': 'chrome://favicon/' + callback[i].url
+        })
     }
 })
 var f_sites = new Vue({
@@ -15,9 +20,13 @@ var f_sites = new Vue({
 
 // Recent Bookmarks logic
 var recentBookmarksArray = []
-chrome.bookmarks.getRecent(20, function(callback) {
-    for (var i = 0; i < 20; i++) {
-        recentBookmarksArray.push({ 'title': callback[i].title, 'url': callback[i].url, 'faviconUrl': 'chrome://favicon/' + callback[i].url })
+chrome.bookmarks.getRecent(10, (callback)=>{
+    for (var i = 0; i < 10; i++) {
+        recentBookmarksArray.push({ 
+          'title': callback[i].title,
+          'url': callback[i].url,
+          'faviconUrl': 'chrome://favicon/' + callback[i].url 
+        })
     }
 })
 var r_bookmarks = new Vue({
@@ -29,7 +38,6 @@ var r_bookmarks = new Vue({
 })
 
 // ToDo list logic
-// Todo: Make the following code more Vue-style
 var todoStorage = {
     save: function(todos) {
         chrome.storage.sync.set({ 'chromeTodoItems': todos }, function() {
@@ -55,6 +63,13 @@ var todos_app = new Vue({
             }
         }
     },
+    computed: {
+      pendingTodos: function(){
+        return this.todos.filter(function(el){
+          return el.done !== true;
+        })
+      }
+    },
     created: function() {
         var self = this
         chrome.storage.sync.get('chromeTodoItems', function(items) {
@@ -68,16 +83,12 @@ var todos_app = new Vue({
                 console.error("Runtime Error while fetching data from Chrome Storage")
             }
         })
-        self.todos.forEach(function(todo, index) {
-            todo.id = index
-        })
-        todoStorage.uid = self.todos.length
     },
     methods: {
         addTodo: function(todoText) {
             var text = this.todoText && this.todoText.trim()
             if (text == '') {
-                todoText = ''
+                this.todoText = ''
                 return
             }
             var todo = {
@@ -99,23 +110,32 @@ var todos_app = new Vue({
 var footer = new Vue({
     el: '#footer',
     methods: {
-        restorePreviousSession: function() {
-            chrome.sessions.restore()
-        },
-        openHistory: function() {
-            chrome.tabs.update({ 'url': 'chrome://history' })
-        },
-        openSettings: function() {
-            chrome.tabs.update({ 'url': 'chrome://settings' })
-        },
-        openBookmarks: function() {
-            chrome.tabs.update({ 'url': 'chrome://bookmarks', 'selected': true })
-        },
-        openChromeApps: function() {
-            chrome.tabs.update({ 'url': 'chrome://apps' })
-        },
-        openDownloads: function() {
-            chrome.tabs.update({ 'url': 'chrome://downloads' })
-        }
+        // restorePreviousSession: function() {
+        //     chrome.sessions.restore()
+        // },
+        // openHistory: function() {
+        //     chrome.tabs.update({ 'url': 'chrome://history' })
+        // },
+        // openSettings: function() {
+        //     chrome.tabs.update({ 'url': 'chrome://settings' })
+        // },
+        // openBookmarks: function() {
+        //     chrome.tabs.update({ 'url': 'chrome://bookmarks', 'selected': true })
+        // },
+        // openChromeApps: function() {
+        //     chrome.tabs.update({ 'url': 'chrome://apps' })
+        // },
+        // openDownloads: function() {
+        //     chrome.tabs.update({ 'url': 'chrome://downloads' })
+        // }
+        openLink: openLink
     }
 })
+
+function openLink(url){
+  if(url === 'restore session'){
+    chrome.sessions.restore();
+    return;
+  }
+  chrome.tabs.update({ 'url': url, 'selected': true })
+}

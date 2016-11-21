@@ -1,13 +1,14 @@
 {
-	"manifest_version": 2,
+	"manifest_version": 3,
 	"name": "Perfect Tab",
-	"manifest_version": 2,
-	"version": "2.0",
+  "description": "This extension replaces the new tab page with a more feature-rich and lightweight page.",
+	"version": "3.0",
 	"chrome_url_overrides" : {
 	    "newtab": "perfect-tab.html"
 	  },
-	"icons": { "16": "icon.png",
-           "32": "icon.png",
+    "icons": { "16": "icon.png",
+              "32": "icon.png",
+           "48": "icon.png",
           "128": "icon.png" },
   	"permissions" : [
   		"tabs",

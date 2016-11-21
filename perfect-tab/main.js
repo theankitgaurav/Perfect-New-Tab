@@ -1,45 +1,52 @@
+// Todo: Make devtools detect this page
 Vue.config.devtools = true
-// Frequent Sites logic
-var frequentSitesArray = []
-chrome.topSites.get((callback)=>{
-    for (var i = 0; i < 10; i++) {
-        frequentSitesArray.push({
-          'title': callback[i].title,
-          'url': callback[i].url,
-          'faviconUrl': 'chrome://favicon/' + callback[i].url
-        })
+
+var ListComponent = Vue.extend({
+    props: ['urlObject'],
+    template: '<a class="text-muted" v-on:click="openLink(urlObject.url)"><img v-bind:src="urlObject.faviconUrl">&nbsp;&nbsp;{{urlObject.title}}</a>',
+    methods: {
+        openLink: openLink
     }
-})
+});
+Vue.component('list-component', ListComponent);
+
+// Frequent Sites logic
 var f_sites = new Vue({
     el: '#f_sites',
     data: {
-        app_name: 'Frequent Sites',
-        frequentSitesArray: frequentSitesArray
+        frequentSitesArray: []
     },
-    methods: {
-      openLink: openLink
+    created: function() {
+        var self = this;
+        chrome.topSites.get((callback) => {
+            for (var i = 0; i < 10; i++) {
+                self.frequentSitesArray.push({
+                    'title': callback[i].title,
+                    'url': callback[i].url,
+                    'faviconUrl': 'chrome://favicon/' + callback[i].url
+                })
+            }
+        })
     }
 })
 
 // Recent Bookmarks logic
-var recentBookmarksArray = []
-chrome.bookmarks.getRecent(10, (callback)=>{
-    for (var i = 0; i < 10; i++) {
-        recentBookmarksArray.push({ 
-          'title': callback[i].title,
-          'url': callback[i].url,
-          'faviconUrl': 'chrome://favicon/' + callback[i].url 
-        })
-    }
-})
 var r_bookmarks = new Vue({
     el: '#r_bookmarks',
     data: {
-        app_name: 'Recent Bookmarks',
-        recentBookmarksArray: recentBookmarksArray
+        recentBookmarksArray: []
     },
-    methods: {
-      openLink: openLink
+    created: function(){
+        const self = this
+        chrome.bookmarks.getRecent(10, (callback) => {
+            for (var i = 0; i < 10; i++) {
+                this.recentBookmarksArray.push({
+                    'title': callback[i].title,
+                    'url': callback[i].url,
+                    'faviconUrl': 'chrome://favicon/' + callback[i].url
+                })
+            }
+        })
     }
 })
 
@@ -70,11 +77,11 @@ var todos_app = new Vue({
         }
     },
     computed: {
-      pendingTodos: function(){
-        return this.todos.filter(function(el){
-          return el.done !== true;
-        })
-      }
+        pendingTodos: function() {
+            return this.todos.filter(function(el) {
+                return el.done !== true;
+            })
+        }
     },
     created: function() {
         var self = this
@@ -121,10 +128,10 @@ var footer = new Vue({
 })
 
 //This method opens all links overridding chrome blockage of file-system urls
-function openLink(url){
-  if(url === 'restore session'){
-    chrome.sessions.restore();
-    return;
-  }
-  chrome.tabs.update({ 'url': url, 'selected': true })
+function openLink(url) {
+    if (url === 'restore session') {
+        chrome.sessions.restore();
+        return;
+    }
+    chrome.tabs.update({ 'url': url, 'selected': true })
 }

@@ -25,3 +25,5 @@ Perfect-tab ( repository name "perfect-tab" ) is licensed under the MIT license.
 - Make a modal that shows the details of each of the panels, should act as a complete app container
 - Make the footer and panels scale down/up responsively
 - Option to pin stuff in the detailed views
+- Add personalization panel
+- Use momentJS for todosDate

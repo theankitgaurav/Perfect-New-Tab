@@ -5,7 +5,6 @@
     <title>New Tab</title>
     <link rel="stylesheet" href="bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="styles.css">
-    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 </head>
 
 <body>
@@ -15,11 +14,11 @@
                 <div class="container">
                     <div class="col-xs-4 url-apps" id="f_sites">
                         <div class="panel panel-success">
-                            <div class="panel-heading text-uppercase"><span class="glyphicon glyphicon-stats"></span> &nbsp; {{app_name}}</div>
+                            <div class="panel-heading text-uppercase"><span class="glyphicon glyphicon-stats"></span> &nbsp; Frequent Sites</div>
                             <div class="panel-body">
                                 <ul>
-                                    <li v-for="sites in frequentSitesArray" v-bind:sites="sites" title="{{sites.title}}">
-                                        <a class=" text-muted" v-on:click="openLink(sites.url)"><img v-bind:src="sites.faviconUrl">&nbsp;&nbsp;{{sites.title}}</a>
+                                    <li v-for="urlObject in frequentSitesArray" title="{{urlObject.title}}">
+                                        <list-component v-bind:url-object="urlObject"></list-component>
                                     </li>
                                 </ul>
                             </div>
@@ -27,12 +26,12 @@
                     </div>
                     <div class="col-xs-4 url-apps" id="r_bookmarks">
                         <div class="panel panel-success">
-                            <div class="panel-heading text-uppercase"><span class="glyphicon glyphicon-bookmark"></span> &nbsp; {{app_name}}</div>
+                            <div class="panel-heading text-uppercase"><span class="glyphicon glyphicon-bookmark"></span> &nbsp; Recent Bookmarks</div>
                             <div class="panel-body">
                                 <div class="panel-body-child">
                                     <ul>
-                                        <li v-for="bookmark in recentBookmarksArray" v-bind:bookmark="bookmark">
-                                            <a class=" text-muted" v-on:click="openLink(bookmark.url)" title="{{bookmark.title}}"><img v-bind:src="bookmark.faviconUrl">&nbsp;&nbsp;{{bookmark.title}}</a>
+                                        <li v-for="urlObject in recentBookmarksArray" title="{{urlObject.title}}">
+                                            <list-component v-bind:url-object="urlObject"></list-component>
                                         </li>
                                     </ul>
                                 </div>
@@ -45,12 +44,11 @@
                                 <span class="glyphicon glyphicon-check"></span> &nbsp; <span class="text-uppercase">{{app_name}}</span><span class="glyphicon glyphicon-trash text-muted pull-right" title="Clear Done" id="trash"></span>
                             </div>
                             <div class="panel-body">
-                                <p>{{doneItems}}</p>
                                     <input v-model="todoText" placeholder="What needs to be done" class="form-control" v-on:keyup.enter="addTodo"/>
                                 <ul v-if="todos.length">
-                                    <li v-for="todoitem in todos" class="todos_items">
+                                    <li v-for="todoitem in pendingTodos" class="todos_items">
                                         <input type="checkbox" v-model="doneItems" value="{{todoitem.todoId}}" v-on:click="todoitem.done = !todoitem.done" checked="{{todoitem.done}}">
-                                        <label for="{{todoitem.todoId}}" class="done-{{todoitem.done}}" title="{{todoitem.text}}" style="font-weight: normal;margin-bottom: 0px;"> {{ todoitem.text }} </label>
+                                        <label class="done-{{todoitem.done}}" title="{{todoitem.text}}" style="font-weight: normal;margin-bottom: 0px;"> {{ todoitem.text }} </label>
                                     </li>
                                 </ul>
                             </div>
@@ -60,10 +58,10 @@
             </div>
         </div>
     </div>
-    <div id="footer" id="footer">
+    <div id="footer">
         <div class="container">
             <div class="row">
-                <div class="container" style="color:white">
+                <div class="container">
                     <center>
                         <div class="col-md-2 btn" v-on:click="openLink('restore session')">
                             <span class="glyphicon glyphicon-repeat footer-glyphicon"></span>
@@ -95,7 +93,7 @@
                             <br>
                             <span><strong>Downloads</strong></span>
                         </div>
-                        <div class="col-md-2 btn" v-on:click="openSettings('chrome://settings')">
+                        <div class="col-md-2 btn" v-on:click="openLink('chrome://settings')">
                             <span class="glyphicon glyphicon-cog footer-glyphicon"></span>
                             <br>
                             <br>

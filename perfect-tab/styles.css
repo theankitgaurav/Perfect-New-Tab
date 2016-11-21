@@ -2,7 +2,6 @@
 	padding-top: 80px;
 	padding-bottom: 50px;
 	background-color: #537780;
-    font-family: 'Lato', sans-serif;
 }
 #footer{
 	background-color: #4A2C2C;
@@ -42,7 +41,7 @@ ul{
 .panel-body{
 	height: 350px;
 	overflow: hidden;
-	padding: 10px;
+	padding: 15px;
 }
 .panel-body:hover{
 	overflow-y:auto;

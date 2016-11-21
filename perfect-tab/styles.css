@@ -49,12 +49,13 @@ ul{
 }
 a : hover{
 	color: #3c763d;
-	text-decoration: none;	
+	text-decoration: none;
 }
 
 a{
 	color: inherit;
 	display: block;
+	cursor: pointer;
 }
 #trash{
 	visibility: hidden;

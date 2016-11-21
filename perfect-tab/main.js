@@ -15,6 +15,9 @@ var f_sites = new Vue({
     data: {
         app_name: 'Frequent Sites',
         frequentSitesArray: frequentSitesArray
+    },
+    methods: {
+      openLink: openLink
     }
 })
 
@@ -34,6 +37,9 @@ var r_bookmarks = new Vue({
     data: {
         app_name: 'Recent Bookmarks',
         recentBookmarksArray: recentBookmarksArray
+    },
+    methods: {
+      openLink: openLink
     }
 })
 
@@ -110,28 +116,11 @@ var todos_app = new Vue({
 var footer = new Vue({
     el: '#footer',
     methods: {
-        // restorePreviousSession: function() {
-        //     chrome.sessions.restore()
-        // },
-        // openHistory: function() {
-        //     chrome.tabs.update({ 'url': 'chrome://history' })
-        // },
-        // openSettings: function() {
-        //     chrome.tabs.update({ 'url': 'chrome://settings' })
-        // },
-        // openBookmarks: function() {
-        //     chrome.tabs.update({ 'url': 'chrome://bookmarks', 'selected': true })
-        // },
-        // openChromeApps: function() {
-        //     chrome.tabs.update({ 'url': 'chrome://apps' })
-        // },
-        // openDownloads: function() {
-        //     chrome.tabs.update({ 'url': 'chrome://downloads' })
-        // }
         openLink: openLink
     }
 })
 
+//This method opens all links overridding chrome blockage of file-system urls
 function openLink(url){
   if(url === 'restore session'){
     chrome.sessions.restore();

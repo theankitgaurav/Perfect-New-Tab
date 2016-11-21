@@ -19,7 +19,7 @@
                             <div class="panel-body">
                                 <ul>
                                     <li v-for="sites in frequentSitesArray" v-bind:sites="sites" title="{{sites.title}}">
-                                        <a class=" text-muted" href="{{sites.url}}"><img v-bind:src="sites.faviconUrl">&nbsp;&nbsp;{{sites.title}}</a>
+                                        <a class=" text-muted" v-on:click="openLink(sites.url)"><img v-bind:src="sites.faviconUrl">&nbsp;&nbsp;{{sites.title}}</a>
                                     </li>
                                 </ul>
                             </div>
@@ -32,7 +32,7 @@
                                 <div class="panel-body-child">
                                     <ul>
                                         <li v-for="bookmark in recentBookmarksArray" v-bind:bookmark="bookmark">
-                                            <a class=" text-muted" href="{{bookmark.url}}" title="{{bookmark.title}}"><img v-bind:src="bookmark.faviconUrl">&nbsp;&nbsp;{{bookmark.title}}</a>
+                                            <a class=" text-muted" v-on:click="openLink(bookmark.url)" title="{{bookmark.title}}"><img v-bind:src="bookmark.faviconUrl">&nbsp;&nbsp;{{bookmark.title}}</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -65,37 +65,37 @@
             <div class="row">
                 <div class="container" style="color:white">
                     <center>
-                        <div class="col-md-2 btn" v-on:click="restorePreviousSession">
+                        <div class="col-md-2 btn" v-on:click="openLink('restore session')">
                             <span class="glyphicon glyphicon-repeat footer-glyphicon"></span>
                             <br>
                             <br>
                             <span><strong>Reopen Closed Tabs</strong></span>
                         </div>
-                        <div class="col-md-2 btn" v-on:click="openChromeApps">
+                        <div class="col-md-2 btn" v-on:click="openLink('chrome://apps')">
                             <span class="glyphicon glyphicon-th footer-glyphicon"></span>
                             <br>
                             <br>
                             <span><strong>Apps</strong></span>
                         </div>
-                        <div class="col-md-2 btn" v-on:click="openBookmarks">
+                        <div class="col-md-2 btn" v-on:click="openLink('chrome://bookmarks')">
                             <span class="glyphicon glyphicon-bookmark footer-glyphicon"></span>
                             <br>
                             <br>
                             <span><strong>Bookmarks</strong></span>
                         </div>
-                        <div class="col-md-2 btn" v-on:click="openHistory">
+                        <div class="col-md-2 btn" v-on:click="openLink('chrome://history')">
                             <span class="glyphicon glyphicon-time footer-glyphicon"></span>
                             <br>
                             <br>
                             <span><strong>History</strong></span>
                         </div>
-                        <div class="col-md-2 btn" v-on:click="openDownloads">
+                        <div class="col-md-2 btn" v-on:click="openLink('chrome://downloads')">
                             <span class="glyphicon glyphicon-download-alt footer-glyphicon "></span>
                             <br>
                             <br>
                             <span><strong>Downloads</strong></span>
                         </div>
-                        <div class="col-md-2 btn" v-on:click="openSettings">
+                        <div class="col-md-2 btn" v-on:click="openSettings('chrome://settings')">
                             <span class="glyphicon glyphicon-cog footer-glyphicon"></span>
                             <br>
                             <br>

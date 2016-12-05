@@ -14,19 +14,31 @@ Vue.component('list-component', ListComponent);
 var f_sites = new Vue({
     el: '#f_sites',
     data: {
-        frequentSitesArray: []
+        frequentSitesArray: [],
+        numberOfItems: 10
     },
     created: function() {
-        var self = this;
-        chrome.topSites.get((callback) => {
-            for (var i = 0; i < 10; i++) {
-                self.frequentSitesArray.push({
-                    'title': callback[i].title,
-                    'url': callback[i].url,
-                    'faviconUrl': 'chrome://favicon/' + callback[i].url
-                })
-            }
-        })
+        this.getFrequentSites();
+    },
+    watch: {
+        numberOfItems: function() {
+            this.getFrequentSites();
+        }
+    },
+    methods: {
+        getFrequentSites: function() {
+            var self = this;
+            chrome.topSites.get((callback) => {
+                self.frequentSitesArray = []
+                for (var i = 0; i < this.numberOfItems; i++) {
+                    self.frequentSitesArray.push({
+                        'title': callback[i].title,
+                        'url': callback[i].url,
+                        'faviconUrl': 'chrome://favicon/' + callback[i].url
+                    })
+                }
+            })
+        }
     }
 })
 
@@ -34,19 +46,31 @@ var f_sites = new Vue({
 var r_bookmarks = new Vue({
     el: '#r_bookmarks',
     data: {
-        recentBookmarksArray: []
+        recentBookmarksArray: [],
+        numberOfItems: 10
     },
-    created: function(){
-        const self = this
-        chrome.bookmarks.getRecent(10, (callback) => {
-            for (var i = 0; i < 10; i++) {
-                this.recentBookmarksArray.push({
-                    'title': callback[i].title,
-                    'url': callback[i].url,
-                    'faviconUrl': 'chrome://favicon/' + callback[i].url
-                })
-            }
-        })
+    created: function() {
+        this.getRecentBookmarks();
+    },
+    watch: {
+        numberOfItems: function() {
+            this.getRecentBookmarks();
+        }
+    },
+    methods: {
+        getRecentBookmarks: function() {
+            const self = this
+            self.recentBookmarksArray = [];
+            chrome.bookmarks.getRecent(self.numberOfItems, (callback) => {
+                for (var i = 0; i < self.numberOfItems; i++) {
+                    self.recentBookmarksArray.push({
+                        'title': callback[i].title,
+                        'url': callback[i].url,
+                        'faviconUrl': 'chrome://favicon/' + callback[i].url
+                    })
+                }
+            })
+        }
     }
 })
 

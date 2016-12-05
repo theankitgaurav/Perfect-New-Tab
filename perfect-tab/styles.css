@@ -77,3 +77,11 @@ a:hover, a:focus {
 	font-weight: 600;
 	text-decoration: none;
 }
+.panel>.panel-heading {
+    color: white;
+    background-color: #625772;
+    border-color: #625772;
+}
+.panel {
+    border-color: #625772;
+}

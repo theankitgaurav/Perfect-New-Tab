@@ -13,19 +13,20 @@
             <div class="row text-muted">
                 <div class="container">
                     <div class="col-xs-4 url-apps" id="f_sites">
-                        <div class="panel panel-success">
+                        <div class="panel  ">
                             <div class="panel-heading text-uppercase"><span class="glyphicon glyphicon-stats"></span> &nbsp; Frequent Sites</div>
                             <div class="panel-body">
                                 <ul>
                                     <li v-for="urlObject in frequentSitesArray" title="{{urlObject.title}}">
                                         <list-component v-bind:url-object="urlObject"></list-component>
                                     </li>
+                                    <li v-on:click="numberOfItems = numberOfItems + 10">More</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <div class="col-xs-4 url-apps" id="r_bookmarks">
-                        <div class="panel panel-success">
+                        <div class="panel  ">
                             <div class="panel-heading text-uppercase"><span class="glyphicon glyphicon-bookmark"></span> &nbsp; Recent Bookmarks</div>
                             <div class="panel-body">
                                 <div class="panel-body-child">
@@ -33,18 +34,19 @@
                                         <li v-for="urlObject in recentBookmarksArray" title="{{urlObject.title}}">
                                             <list-component v-bind:url-object="urlObject"></list-component>
                                         </li>
+                                        <li v-on:click="numberOfItems = numberOfItems + 10">More</li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-xs-4">
-                        <div class="panel panel-success" id="todos_app">
+                        <div class="panel  " id="todos_app">
                             <div class="panel-heading">
                                 <span class="glyphicon glyphicon-check"></span> &nbsp; <span class="text-uppercase">{{app_name}}</span><span class="glyphicon glyphicon-trash text-muted pull-right" title="Clear Done" id="trash"></span>
                             </div>
                             <div class="panel-body">
-                                    <input v-model="todoText" placeholder="What needs to be done" class="form-control" v-on:keyup.enter="addTodo"/>
+                                <input v-model="todoText" placeholder="What needs to be done" class="form-control" v-on:keyup.enter="addTodo" />
                                 <ul v-if="todos.length">
                                     <li v-for="todoitem in pendingTodos" class="todos_items">
                                         <input type="checkbox" v-model="doneItems" value="{{todoitem.todoId}}" v-on:click="todoitem.done = !todoitem.done" checked="{{todoitem.done}}">
@@ -107,4 +109,5 @@
     <script type="text/javascript" src="vue.js"></script>
     <script type="text/javascript" src="main.js"></script>
 </body>
+
 </html>

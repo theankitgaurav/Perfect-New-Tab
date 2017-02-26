@@ -1,15 +1,4 @@
-// Todo: Make devtools detect this page
-Vue.config.devtools = true
-
-var ListComponent = Vue.extend({
-    props: ['urlObject'],
-    template: '<a class="text-muted" v-on:click="openLink(urlObject.url)"><img v-bind:src="urlObject.faviconUrl">&nbsp;&nbsp;{{urlObject.title}}</a>',
-    methods: {
-        openLink: openLink
-    }
-});
-Vue.component('list-component', ListComponent);
-
+chrome.contextMenus.removeAll()
 // Frequent Sites logic
 var f_sites = new Vue({
     el: '#f_sites',
@@ -38,7 +27,8 @@ var f_sites = new Vue({
                     })
                 }
             })
-        }
+        },
+        openLink: openLink
     }
 })
 
@@ -47,30 +37,54 @@ var r_bookmarks = new Vue({
     el: '#r_bookmarks',
     data: {
         recentBookmarksArray: [],
-        numberOfItems: 10
+        numberOfItems: 10,
+        checkedItems: [],
+        deleteMode: false
     },
     created: function() {
-        this.getRecentBookmarks();
+        this.getRecentBookmarks()
     },
     watch: {
         numberOfItems: function() {
-            this.getRecentBookmarks();
+            this.getRecentBookmarks()
         }
     },
+    computed: {
+      focusDeleteBtn: function(){
+        console.log(this.deleteMode);
+        return !this.deleteMode
+      }
+    },
     methods: {
+        deleteCheckedBookmarks: function() {
+          if(this.deleteMode === false){
+            this.deleteMode = true
+
+          } else {
+            this.checkedItems.forEach(function(elem){
+              chrome.bookmarks.remove(elem)
+            })
+            this.checkedItems = []
+            this.getRecentBookmarks()
+            this.deleteMode = false
+          }
+
+        },
         getRecentBookmarks: function() {
             const self = this
-            self.recentBookmarksArray = [];
+            self.recentBookmarksArray = []
             chrome.bookmarks.getRecent(self.numberOfItems, (callback) => {
                 for (var i = 0; i < self.numberOfItems; i++) {
                     self.recentBookmarksArray.push({
                         'title': callback[i].title,
                         'url': callback[i].url,
-                        'faviconUrl': 'chrome://favicon/' + callback[i].url
+                        'faviconUrl': 'chrome://favicon/' + callback[i].url,
+                        'id': callback[i].id
                     })
                 }
             })
-        }
+        },
+        openLink: openLink
     }
 })
 
@@ -79,7 +93,7 @@ var todoStorage = {
     save: function(todos) {
         chrome.storage.sync.set({ 'chromeTodoItems': todos }, function() {
             if (chrome.runtime.lastError) {
-                console.error('Runtime lastError while saving data to chrome storage')
+                throw ('Runtime lastError while saving data to chrome storage')
             }
         })
     }

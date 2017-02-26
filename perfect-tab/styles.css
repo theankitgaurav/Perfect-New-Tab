@@ -58,7 +58,7 @@ a: hover {
 
 a {
     color: inherit;
-    display: block;
+    display: inline-block;
     cursor: pointer;
 }
 

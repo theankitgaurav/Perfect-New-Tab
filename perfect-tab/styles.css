@@ -44,7 +44,7 @@ ul {
 .panel-body {
     height: 350px;
     overflow: hidden;
-    padding: 15px;
+    padding: 15px 10px;
 }
 
 .panel-body:hover {

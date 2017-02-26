@@ -18,6 +18,7 @@
     },
     "icons": { "48": "icon.png" },
     "permissions": [
+        "contextMenus",
         "tabs",
         "bookmarks",
         "storage",

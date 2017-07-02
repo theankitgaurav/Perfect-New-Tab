@@ -2,3 +2,4 @@
 chrome.browserAction.onClicked.addListener((tab) => {
     chrome.sessions.restore();
 })
+//check

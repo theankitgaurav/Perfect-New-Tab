@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>New Tab</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+</head>
+
+<body>
+    <div id="main">
+        <div class="container">
+            <div class="row text-muted">
+                <div class="col-xs-4 url-apps" id="f_sites">
+                    <div class="panel  ">
+                        <div class="panel-heading text-uppercase"><span class="glyphicon glyphicon-stats"></span> &nbsp; Frequent Sites</div>
+                        <div class="panel-body">
+                            <ul>
+                                <li v-for="urlObject in frequentSitesArray" title="{{urlObject.url}}">
+                                    <a v-on:click="openLink(urlObject.url)"><img style="border-radius:100%" v-bind:src="urlObject.faviconUrl">&nbsp;&nbsp;{{urlObject.title}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-4 url-apps" id="r_bookmarks">
+                    <div class="panel">
+                        <div class="panel-heading text-uppercase"><span class="glyphicon glyphicon-bookmark"></span> &nbsp; Recent Bookmarks
+                          <span class="glyphicon glyphicon-trash pull-right text-muted"  title="Delete items"v-on:click="deleteCheckedBookmarks()"></span></div>
+                        <div class="panel-body">
+                            <div class="panel-body-child">
+                                <ul>
+                                    <div v-if="numberOfItems">
+                                        <li v-for="urlObject in recentBookmarksArray" title="{{urlObject.url}}">
+                                            <input type="checkbox" v-model="checkedItems" v-bind:value="urlObject.id" v-if="deleteMode"/>
+                                            &nbsp;
+                                            <a class="text-muted" v-on:click="openLink(urlObject.url)"><img style="border-radius:100%" v-bind:src="urlObject.faviconUrl">&nbsp;&nbsp;{{urlObject.title}}</a>
+                                        </li>
+                                        <li v-if="numberOfItems>=10" v-on:click="numberOfItems += numberOfItems"><center>More</center></li>
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="panel  " id="todos_app">
+                        <div class="panel-heading">
+                            <span class="glyphicon glyphicon-check"></span> &nbsp; <span class="text-uppercase">{{app_name}}</span><span class="glyphicon glyphicon-trash text-muted pull-right" title="Delete items" v-on:click="deleteItems()"></span>
+                        </div>
+                        <div class="panel-body">
+                            <input v-model="todoText" placeholder="What needs to be done" class="form-control" v-on:keyup.enter="addTodo" maxlength=144 type="text"/>
+                            <ul v-if="todos.length">
+                                <li v-for="el in todos" class="todos_items">
+                                    <input type="checkbox" value="{{el.todoId}}" v-on:click="el.done = !el.done" checked="{{el.done}}">
+                                    <label class="done-{{el.done}}" title="{{el.text}}" style="font-weight: normal;margin-bottom: 0px;"> {{ el.text }} </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="container text-uppercase">
+                    <center>
+                        <div class="col-md-2 btn" v-on:click="openLink('chrome://bookmarks')">
+                            <span class="glyphicon glyphicon-bookmark footer-glyphicon"></span>
+                            <br>
+                            <br>
+                            <span><strong>Bookmarks</strong></span>
+                        </div>
+                        <div class="col-md-2 btn" v-on:click="openLink('chrome://history')">
+                            <span class="glyphicon glyphicon-time footer-glyphicon"></span>
+                            <br>
+                            <br>
+                            <span><strong>History</strong></span>
+                        </div>
+                        <div class="col-md-2 btn" v-on:click="openLink('chrome://downloads')">
+                            <span class="glyphicon glyphicon-download-alt footer-glyphicon "></span>
+                            <br>
+                            <br>
+                            <span><strong>Downloads</strong></span>
+                        </div>
+                        <div class="col-md-2 btn" v-on:click="openLink('chrome://apps')">
+                            <span class="glyphicon glyphicon-th footer-glyphicon"></span>
+                            <br>
+                            <br>
+                            <span><strong>Apps</strong></span>
+                        </div>
+                        <div class="col-md-2 btn" v-on:click="openLink('chrome://extensions')">
+                            <span class="glyphicon glyphicon-plus footer-glyphicon"></span>
+                            <br>
+                            <br>
+                            <span><strong>Extensions</strong></span>
+                        </div>
+                        <div class="col-md-2 btn" v-on:click="openLink('chrome://settings')">
+                            <span class="glyphicon glyphicon-cog footer-glyphicon"></span>
+                            <br>
+                            <br>
+                            <span><strong>Settings</strong></span>
+                        </div>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/vue.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+</body>
+
+</html>

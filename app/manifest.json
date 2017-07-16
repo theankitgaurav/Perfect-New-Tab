@@ -1,0 +1,30 @@
+{
+    "manifest_version": 4,
+    "name": "Perfect New Tab",
+    "description": "This extension replaces the new tab page with a more feature-rich and lightweight page.",
+    "homepage_url": "https://github.com/ankitgaurav/Perfect-New-Tab",
+    "version": "4.0",
+    "chrome_url_overrides": {
+        "newtab": "index.html"
+    },
+    "browser_action": {
+    },
+    "background": {
+        "scripts": [
+            "js/background.js"
+        ],
+        "persistent": true
+    },
+    "icons": { "48": "icons/icon.png" },
+    "permissions": [
+        "contextMenus",
+        "tabs",
+        "bookmarks",
+        "storage",
+        "downloads",
+        "history",
+        "sessions",
+        "topSites",
+        "chrome://favicon/"
+    ]
+}

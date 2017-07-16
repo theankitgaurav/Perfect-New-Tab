@@ -1,0 +1,105 @@
+#main {
+    padding-top: 80px;
+    padding-bottom: 30px;
+    height: 80vh;
+    background-color: #537780;
+}
+
+#footer {
+    background-color: #4A2C2C;
+    width: 100%;
+    height: 20vh;
+    border-top: 1px solid hsla(0, 0%, 0%, .03);
+    padding-top: 25px;
+    padding-bottom: 20px;
+}
+
+.footer-glyphicon {
+    font-size: 36px;
+}
+
+li {
+    font-size: 1.2em;
+    list-style-type: none;
+    line-height: 2.4em;
+    border-bottom: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.url-apps li {
+    border-bottom: 1px dotted #d8e0e6;
+}
+
+ul {
+    padding-left: 10px;
+}
+
+.done-true {
+    text-decoration: line-through;
+    color: #555;
+}
+
+.panel-body {
+    height: 350px;
+    overflow: hidden;
+    padding: 15px 10px;
+}
+
+.panel-body:hover {
+    overflow-y: auto;
+}
+
+a: hover {
+    color: #3c763d;
+    text-decoration: none;
+}
+
+a {
+    color: inherit;
+    display: inline-block;
+    cursor: pointer;
+}
+
+#trash {
+    visibility: hidden;
+}
+
+.todos_items {
+    text-transform: capitalize;
+}
+
+.btn {
+    color: #BBB;
+}
+
+.btn-dim {
+    color: #777;
+}
+
+.btn:hover {
+    color: #FFF;
+}
+
+.btn:active {
+    box-shadow: none;
+    webkit-box-shadow: none;
+}
+
+a:hover,
+a:focus {
+    color: #666;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.panel>.panel-heading {
+    color: white;
+    background-color: #625772;
+    border-color: #625772;
+}
+
+.panel {
+    border-color: #625772;
+}

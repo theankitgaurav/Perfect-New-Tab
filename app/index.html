@@ -49,7 +49,7 @@
                             <span class="glyphicon glyphicon-check"></span> &nbsp; <span class="text-uppercase">{{app_name}}</span><span class="glyphicon glyphicon-trash text-muted pull-right" title="Delete items" v-on:click="deleteItems()"></span>
                         </div>
                         <div class="panel-body">
-                            <input v-model="todoText" placeholder="What needs to be done" class="form-control" v-on:keyup.enter="addTodo" maxlength=144 type="text"/>
+                            <input v-model="todoText" placeholder="What needs to be done" class="form-control" v-on:keyup.enter="addTodo" maxlength=144 type="text" />
                             <ul v-if="todos.length">
                                 <li v-for="el in todos" class="todos_items">
                                     <input type="checkbox" value="{{el.todoId}}" v-on:click="el.done = !el.done" checked="{{el.done}}">

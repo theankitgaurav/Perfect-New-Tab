@@ -66,10 +66,6 @@ a {
     visibility: hidden;
 }
 
-.todos_items {
-    text-transform: capitalize;
-}
-
 .btn {
     color: #BBB;
 }

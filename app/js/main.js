@@ -1,16 +1,15 @@
-chrome.contextMenus.removeAll()
-//This method opens all links overridding chrome blockage of file-system urls
-function openLink(url) {
-    if (url === 'restore session') {
-        chrome.sessions.restore();
-        return;
+var myMixin = {
+    methods: {
+        openLink: function (url) {
+            chrome.tabs.update({ 'url': url, 'selected': true })
+        }
     }
-    chrome.tabs.update({ 'url': url, 'selected': true })
 }
 
 // Frequent Sites logic
 var f_sites = new Vue({
     el: '#f_sites',
+    mixins: [myMixin],
     data: {
         frequentSitesArray: [],
         numberOfItems: 10
@@ -25,26 +24,24 @@ var f_sites = new Vue({
     },
     methods: {
         getFrequentSites: function() {
-            var self = this;
-            chrome.topSites.get((result) => {
-                self.numberOfItems = (self.numberOfItems < result.length) ? self.numberOfItems: result.length
-                self.frequentSitesArray = []
-                for (var i = 0; i < self.numberOfItems; i++) {
-                    self.frequentSitesArray.push({
-                        'title': result[i].title,
-                        'url': result[i].url,
-                        'faviconUrl': 'chrome://favicon/' + result[i].url
-                    })
-                }
-            })
-        },
-        openLink: openLink
+            const self = this;
+            chrome.topSites.get((topSitesArr) => {
+                self.frequentSitesArray = topSitesArr.map((topSite)=>{
+                    return {
+                        'title': topSite.title,
+                        'url': topSite.url,
+                        'faviconUrl': 'chrome://favicon/' + topSite.url
+                    }
+                });
+            });
+        }
     }
 })
 
 // Recent Bookmarks logic
 var r_bookmarks = new Vue({
     el: '#r_bookmarks',
+    mixins: [myMixin],
     data: {
         recentBookmarksArray: [],
         numberOfItems: 10,
@@ -96,8 +93,7 @@ var r_bookmarks = new Vue({
         },
         loadMore: function(){
             self.numberOfItems += 10
-        },
-        openLink: openLink
+        }
     }
 })
 
@@ -182,7 +178,5 @@ var todos_app = new Vue({
 // Footer logic
 var footer = new Vue({
     el: '#footer',
-    methods: {
-        openLink: openLink
-    }
+    mixins: [myMixin],
 })

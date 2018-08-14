@@ -51,8 +51,7 @@
                         <div class="panel-heading">
                             <span class="glyphicon glyphicon-check"></span> &nbsp;
                             <span class="text-uppercase"></span>{{app_name}}</span>
-                            <span class="glyphicon glyphicon-trash text-muted pull-right" title="Delete items"
-                                v-on:click="deleteItems()"></span>
+                            <span class="glyphicon glyphicon-trash text-muted pull-right" title="Delete items" v-on:click="deleteItems()"></span>
                         </div>
                         <div class="panel-body">
                             <input v-model="todoText" placeholder="What needs to be done" class="form-control" v-on:keyup.enter="addTodo" maxlength=144
@@ -73,56 +72,30 @@
         <div class="container">
             <div class="row">
                 <div class="container text-uppercase">
-                    <center>
-                        <div class="col-md-2 btn" v-on:click="openLink('chrome://bookmarks')">
-                            <span class="glyphicon glyphicon-bookmark footer-glyphicon"></span>
-                            <br>
-                            <br>
-                            <span>
-                                <strong>Bookmarks</strong>
-                            </span>
-                        </div>
-                        <div class="col-md-2 btn" v-on:click="openLink('chrome://history')">
-                            <span class="glyphicon glyphicon-time footer-glyphicon"></span>
-                            <br>
-                            <br>
-                            <span>
-                                <strong>History</strong>
-                            </span>
-                        </div>
-                        <div class="col-md-2 btn" v-on:click="openLink('chrome://downloads')">
-                            <span class="glyphicon glyphicon-download-alt footer-glyphicon "></span>
-                            <br>
-                            <br>
-                            <span>
-                                <strong>Downloads</strong>
-                            </span>
-                        </div>
-                        <div class="col-md-2 btn" v-on:click="openLink('chrome://apps')">
-                            <span class="glyphicon glyphicon-th footer-glyphicon"></span>
-                            <br>
-                            <br>
-                            <span>
-                                <strong>Apps</strong>
-                            </span>
-                        </div>
-                        <div class="col-md-2 btn" v-on:click="openLink('chrome://extensions')">
-                            <span class="glyphicon glyphicon-plus footer-glyphicon"></span>
-                            <br>
-                            <br>
-                            <span>
-                                <strong>Extensions</strong>
-                            </span>
-                        </div>
-                        <div class="col-md-2 btn" v-on:click="openLink('chrome://settings')">
-                            <span class="glyphicon glyphicon-cog footer-glyphicon"></span>
-                            <br>
-                            <br>
-                            <span>
-                                <strong>Settings</strong>
-                            </span>
-                        </div>
-                    </center>
+                    <div class="col-md-2 btn" v-on:click="openLink('chrome://bookmarks')">
+                        <div class="glyphicon glyphicon-bookmark footer-glyphicon"></div>
+                        <div class="footer__btn__text">Bookmarks</div>
+                    </div>
+                    <div class="col-md-2 btn" v-on:click="openLink('chrome://history')">
+                        <div class="glyphicon glyphicon-time footer-glyphicon"></div>
+                        <div class="footer__btn__text">History</div>
+                    </div>
+                    <div class="col-md-2 btn" v-on:click="openLink('chrome://downloads')">
+                        <div class="glyphicon glyphicon-download-alt footer-glyphicon "></div>
+                        <div class="footer__btn__text">Downloads</div>
+                    </div>
+                    <div class="col-md-2 btn" v-on:click="openLink('chrome://apps')">
+                        <div class="glyphicon glyphicon-th footer-glyphicon"></div>
+                        <div class="footer__btn__text">Apps</div>
+                    </div>
+                    <div class="col-md-2 btn" v-on:click="openLink('chrome://extensions')">
+                        <div class="glyphicon glyphicon-plus footer-glyphicon"></div>
+                        <div class="footer__btn__text">Extensions</div>
+                    </div>
+                    <div class="col-md-2 btn" v-on:click="openLink('chrome://settings')">
+                        <div class="glyphicon glyphicon-cog footer-glyphicon"></div>
+                        <div class="footer__btn__text">Settings</div>
+                    </div>
                 </div>
             </div>
         </div>

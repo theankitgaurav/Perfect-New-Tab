@@ -17,13 +17,13 @@
                         <div class="panel-heading">
                             <span class="glyphicon glyphicon-stats"></span> &nbsp; Frequent Sites</div>
                         <div class="panel-body">
-                            <ul v-if="frequentSitesArray.length">
-                                <li v-for="urlObject in frequentSitesArray" title="{{urlObject.url}}">
+                            <ul v-if="topSitesArray.length">
+                                <li v-for="urlObject in topSitesArray" title="{{urlObject.url}}">
                                     <a v-on:click="openLink(urlObject.url)">
                                         <img style="border-radius:100%" v-bind:src="urlObject.faviconUrl">
                                         &nbsp;&nbsp;{{urlObject.title}}
                                     </a>
-                                    <span v-on:click="hide(urlObject.url)">X</span>
+                                    <span class="hideIt" v-on:click="hide(urlObject.url)">X</span>
                                 </li>
                             </ul>
                         </div>

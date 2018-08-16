@@ -33,6 +33,18 @@ ul {
     padding-left: 0px;
 }
 
+li .hideIt {
+    opacity: 0;
+    visibility: hidden;
+}
+
+li:hover .hideIt {
+    opacity: 1;
+    visibility: visible;
+    cursor: default;
+    transition: opacity 1s ease-in-out;
+}
+
 .done-true {
     text-decoration: line-through;
     color: #aaa;

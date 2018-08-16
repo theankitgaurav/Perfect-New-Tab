@@ -7,15 +7,13 @@ var myMixin = {
 }
 
 class TopSite {
-    constructor(title, url, hidden=false) {
-        this.title = title;
-        this.url = url;
-        this.faviconUrl = `chrome://favicon/${url}`;
-        this.hidden = hidden;
+    constructor(MostVisitedURL) {
+        this.title = MostVisitedURL.title;
+        this.url = MostVisitedURL.url;
+        this.faviconUrl = `chrome://favicon/${MostVisitedURL.url}`;
     }
 }
 
-const HIDDEN_TOPSITES = 'PNT_Hidden_Topsites';
 class BookmarkItem {
     constructor(bookmarkTreeNode) {
         this.title = bookmarkTreeNode.title;
@@ -30,45 +28,53 @@ var f_sites = new Vue({
     el: '#f_sites',
     mixins: [myMixin],
     data: {
-        frequentSitesArray: [],
-        hiddenTopSites: []
-    },
-    created: function() {
-        this.getHiddenTopSites(this.getFrequentSites);
+        topSitesArray: [], // Shape: {title, url, faviconUrl},
+        hiddenTopSiteUrls: []
     },
     watch: {
-        hiddenTopSites: {
+        hiddenTopSiteUrls: {
             deep: true,
-            handler: function (hiddenTopSites) {
-                chrome.storage.sync.set({HIDDEN_TOPSITES: hiddenTopSites}, function() {
+            handler: function(hiddenTopSiteUrls) {
+                const self = this;
+                chrome.storage.sync.set({'HIDDEN_TOPSITES': hiddenTopSiteUrls}, function() {
                     if (chrome.runtime.lastError) {
-                        console.error ('Runtime lastError while saving data to chrome storage', chrome.runtime.lastError)
+                        console.error('Error saving topsites', chrome.runtime.lastError);
+                    } else {
+                        self.init(hiddenTopSiteUrls);
                     }
-                })
+                });
             }
         }
     },
+    created: function() {
+        this.getHiddenTopSiteUrls(this.init);
+    },
     methods: {
-        getFrequentSites: function() {
+        init: function(hiddenUrls) {
+            const self = this;
             chrome.topSites.get((topSites = []) => {
-                this.frequentSitesArray = topSites
-                .map(el =>{
-                    return new TopSite(el.title, el.url);
-                })
-                .filter(el => {
-                    return !this.hiddenTopSites.includes(el.url);
-                });
-                console.log('this.frequentSitesArray: ' , this.frequentSitesArray)
+                self.topSitesArray = topSites
+                .map(MostVisitedURL => new TopSite(MostVisitedURL))
+                .filter(el=>!hiddenUrls.includes(el.url));
             });
         },
-        getHiddenTopSites: function (cb) {
-            chrome.storage.sync.get(HIDDEN_TOPSITES, function(items) {
-                this.hiddenTopSites = items;
-                cb();
-            })
+        getHiddenTopSiteUrls: function (cb){
+            const self = this
+            chrome.storage.sync.get('HIDDEN_TOPSITES', function(hiddenUrls) {
+                self.hiddenTopSiteUrls = hiddenUrls.HIDDEN_TOPSITES;
+                cb(self.hiddenTopSiteUrls);
+            });
         },
         hide: function(url) {
-            this.hiddenTopSites.push(url);
+            if (!this.hiddenTopSiteUrls.includes(url)) {
+                this.hiddenTopSiteUrls.push(url);
+            }
+        },
+        unhide: function(url) {
+            const index = this.hiddenTopSiteUrls.indexOf(url);
+            if(index !== -1) {
+                this.hiddenTopSiteUrls.splice(index, 1);
+            }
         }
     }
 })

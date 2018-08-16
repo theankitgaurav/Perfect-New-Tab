@@ -9,15 +9,15 @@
 </head>
 
 <body>
-    <div id="main">
-        <div class="container">
+    <div id="main" class="center__xy__parent">
+        <div class="container center_xy__child">
             <div class="row text-muted">
                 <div class="col-xs-4 url-apps" id="f_sites">
                     <div class="panel  ">
                         <div class="panel-heading">
                             <span class="glyphicon glyphicon-stats"></span> &nbsp; Frequent Sites</div>
                         <div class="panel-body">
-                            <ul>
+                            <ul v-if="frequentSitesArray.length">
                                 <li v-for="urlObject in frequentSitesArray" title="{{urlObject.url}}">
                                     <a v-on:click="openLink(urlObject.url)">
                                         <img style="border-radius:100%" v-bind:src="urlObject.faviconUrl">
@@ -36,14 +36,11 @@
                             <span class="glyphicon glyphicon-trash pull-right text-muted" title="Delete items" v-on:click="deleteCheckedBookmarks()"></span>
                         </div>
                         <div class="panel-body">
-                            <ul v-if="numberOfItems">
+                            <ul v-if="recentBookmarksArray.length">
                                 <li v-for="urlObject in recentBookmarksArray" title="{{urlObject.url}}">
                                     <input type="checkbox" v-model="checkedItems" v-bind:value="urlObject.id" v-if="deleteMode" /> &nbsp;
                                     <a class="text-muted" v-on:click="openLink(urlObject.url)">
                                         <img style="border-radius:100%" v-bind:src="urlObject.faviconUrl">&nbsp;&nbsp;{{urlObject.title}}</a>
-                                </li>
-                                <li v-if="numberOfItems>=10" v-on:click="numberOfItems += numberOfItems">
-                                    <center>More</center>
                                 </li>
                             </ul>
                         </div>
@@ -60,7 +57,11 @@
                             <input v-model="todoText" placeholder="What needs to be done" class="form-control" v-on:keyup.enter="addTodo" maxlength=144
                                 type="text" />
                             <ul v-if="todos.length">
-                                <li v-for="el in todos" class="todos_items">
+                                <li v-for="el in pendingTodos" class="todos_items">
+                                    <input type="checkbox" value="{{el.todoId}}" v-on:click="el.done = !el.done" checked="{{el.done}}">
+                                    <label class="done-{{el.done}}" title="{{el.text}}" style="font-weight: normal;margin-bottom: 0px;"> {{ el.text }} </label>
+                                </li>
+                                <li v-for="el in doneTodos" class="todos_items done-todos">
                                     <input type="checkbox" value="{{el.todoId}}" v-on:click="el.done = !el.done" checked="{{el.done}}">
                                     <label class="done-{{el.done}}" title="{{el.text}}" style="font-weight: normal;margin-bottom: 0px;"> {{ el.text }} </label>
                                 </li>
@@ -71,8 +72,8 @@
             </div>
         </div>
     </div>
-    <div id="footer">
-        <div class="container">
+    <div id="footer" class="center__xy__parent">
+        <div class="container center_xy__child">
             <div class="row">
                 <div class="container text-uppercase">
                     <div class="col-md-2 btn" v-on:click="openLink('chrome://bookmarks')">

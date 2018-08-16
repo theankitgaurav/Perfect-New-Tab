@@ -14,7 +14,16 @@ class TopSite {
         this.hidden = hidden;
     }
 }
+
 const HIDDEN_TOPSITES = 'PNT_Hidden_Topsites';
+class BookmarkItem {
+    constructor(bookmarkTreeNode) {
+        this.title = bookmarkTreeNode.title;
+        this.url = bookmarkTreeNode.url;
+        this.faviconUrl = 'chrome://favicon/' + bookmarkTreeNode.url;
+        this.id = bookmarkTreeNode.id;
+    }
+}
 
 // Frequent Sites logic
 var f_sites = new Vue({
@@ -70,17 +79,11 @@ var r_bookmarks = new Vue({
     mixins: [myMixin],
     data: {
         recentBookmarksArray: [],
-        numberOfItems: 10,
         checkedItems: [],
         deleteMode: false
     },
     created: function() {
         this.getRecentBookmarks()
-    },
-    watch: {
-        numberOfItems: function() {
-            this.getRecentBookmarks()
-        }
     },
     computed: {
       focusDeleteBtn: function(){
@@ -102,28 +105,24 @@ var r_bookmarks = new Vue({
         },
         getRecentBookmarks: function() {
             const self = this
-            self.recentBookmarksArray = []
-            const positiveLength = 1 // The first parameter can't be less than 1
-            self.numberOfItems = self.numberOfItems || positiveLength
-            chrome.bookmarks.getRecent(self.numberOfItems, (result) => {
-                self.numberOfItems = (self.numberOfItems < result.length)?self.numberOfItems: result.length
-                for (var i = 0; i < self.numberOfItems; i++) {
-                    self.recentBookmarksArray.push({
-                        'title': result[i].title,
-                        'url': result[i].url,
-                        'faviconUrl': 'chrome://favicon/' + result[i].url,
-                        'id': result[i].id
-                    })
-                }
+            const MAX_BOOKMARKS = 999;
+            chrome.bookmarks.getRecent(MAX_BOOKMARKS, (results) => {
+                self.recentBookmarksArray = results.map(el=> new BookmarkItem(el));
             })
-        },
-        loadMore: function(){
-            self.numberOfItems += 10
         }
     }
 })
 
 // ToDo list logic
+
+class TodoItem {
+    constructor (todoText, done = false) {
+        this.text = todoText;
+        this.done = done;
+        this.timeAdded = new Date();
+    }
+}
+
 var todoStorage = {
     save: function(todos) {
         chrome.storage.sync.set({ 'perfect_new_tab_todos': todos }, function() {
@@ -150,45 +149,30 @@ var todos_app = new Vue({
     },
     computed: {
         pendingTodos: function() {
-            return this.todos.filter(function(el) {
-                return !el.done;
-            })
+            return this.todos.filter(el => !el.done);
         },
-        doneItems: function() {
-            return this.todos.filter(function(el) {
-                return el.done
-            })
+        doneTodos: function () {
+            return this.todos.filter(el => !!el.done);
         }
+
     },
     created: function() {
         var self = this
         chrome.storage.sync.get('perfect_new_tab_todos', function(items) {
-            if (!chrome.runtime.lastError) {
-                if (items.perfect_new_tab_todos != null) {
-                    self.todos = items.perfect_new_tab_todos
-                } else {
-                    console.log('No todo items in Chrome Storage')
-                }
+            if (chrome.runtime.lastError) {
+                console.error("Runtime Error while fetching data from Chrome Storage", chrome.runtime.lastError);
             } else {
-                console.error("Runtime Error while fetching data from Chrome Storage")
+                self.todos = items.perfect_new_tab_todos || [];   
             }
         })
     },
     methods: {
         addTodo: function(todoText) {
-            var text = this.todoText && this.todoText.trim()
-            if (text == '') {
-                this.todoText = ''
-                return
+            var text = this.todoText && this.todoText.trim();
+            if (!!text) {
+                this.todos.unshift(new TodoItem(text));
             }
-            var todo = {
-                'todoId': todoStorage.uid++,
-                'text': text,
-                'done': false,
-                'timeAdded': Date.now()
-            }
-            this.todos.push(todo)
-            this.todoText = ''
+            this.todoText = '';
         },
         checkItems: function() {
             document.getElementById('trash').style.visibility = 'visible'

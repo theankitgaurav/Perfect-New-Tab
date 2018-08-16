@@ -1,9 +1,21 @@
 #main {
-    padding-top: 80px;
-    padding-bottom: 30px;
     height: 80vh;
     background-color: #537780;
     font-family: 'Raleway', sans-serif;
+}
+
+#footer {
+    background-color: #4A2C2C;
+    height: 20vh;
+    border-top: 1px solid hsla(0, 0%, 0%, .03);
+}
+
+.footer-glyphicon {
+    font-size: 36px;
+}
+
+.footer__btn__text {
+    margin-top: 20px;
 }
 
 li {
@@ -23,12 +35,13 @@ ul {
 
 .done-true {
     text-decoration: line-through;
-    color: #555;
+    color: #aaa;
 }
 
 .panel-body {
     height: 50vh;
     overflow: hidden;
+    resize: vertical;
 }
 
 .panel-body:hover {
@@ -44,6 +57,7 @@ ul {
 .panel {
     border-color: #625772;
     margin: 10px;
+    overflow: auto;
 }
 
 a {
@@ -63,18 +77,6 @@ a:focus {
     visibility: hidden;
 }
 
-#footer {
-    background-color: #4A2C2C;
-    width: 100%;
-    height: 20vh;
-    border-top: 1px solid hsla(0, 0%, 0%, .03);
-    padding: 20px 0px;
-}
-
-.footer-glyphicon {
-    font-size: 36px;
-}
-
 .btn {
     color: #BBB;
 }
@@ -91,6 +93,34 @@ a:focus {
     box-shadow: none;
 }
 
-.footer__btn__text {
-    margin-top: 20px;
+
+/* ------------------------- */
+/* Utility classes start here*/
+
+.center__xy__parent {
+    position: relative;
 }
+
+.center_xy__child {
+margin: 0;
+position: absolute;
+top: 50%;
+left: 50%;
+-ms-transform: translate(-50%, -50%) ;
+transform: translate(-50%, -50%);
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(158, 155, 155); 
+}
+
+/* Utility classes end here */
+/* ------------------------- */

@@ -31,7 +31,7 @@ ul {
 
 .done-true {
     text-decoration: line-through;
-    color: #555;
+    color: #aaa;
 }
 
 .panel-body {
@@ -87,7 +87,6 @@ a:focus {
 
 .btn:active {
     box-shadow: none;
-    webkit-box-shadow: none;
 }
 
 

@@ -55,7 +55,11 @@
                             <input v-model="todoText" placeholder="What needs to be done" class="form-control" v-on:keyup.enter="addTodo" maxlength=144
                                 type="text" />
                             <ul v-if="todos.length">
-                                <li v-for="el in todos" class="todos_items">
+                                <li v-for="el in pendingTodos" class="todos_items">
+                                    <input type="checkbox" value="{{el.todoId}}" v-on:click="el.done = !el.done" checked="{{el.done}}">
+                                    <label class="done-{{el.done}}" title="{{el.text}}" style="font-weight: normal;margin-bottom: 0px;"> {{ el.text }} </label>
+                                </li>
+                                <li v-for="el in doneTodos" class="todos_items done-todos">
                                     <input type="checkbox" value="{{el.todoId}}" v-on:click="el.done = !el.done" checked="{{el.done}}">
                                     <label class="done-{{el.done}}" title="{{el.text}}" style="font-weight: normal;margin-bottom: 0px;"> {{ el.text }} </label>
                                 </li>

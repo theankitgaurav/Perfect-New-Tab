@@ -82,6 +82,15 @@ var r_bookmarks = new Vue({
 })
 
 // ToDo list logic
+
+class TodoItem {
+    constructor (todoText, done = false) {
+        this.text = todoText;
+        this.done = done;
+        this.timeAdded = new Date();
+    }
+}
+
 var todoStorage = {
     save: function(todos) {
         chrome.storage.sync.set({ 'perfect_new_tab_todos': todos }, function() {
@@ -108,15 +117,12 @@ var todos_app = new Vue({
     },
     computed: {
         pendingTodos: function() {
-            return this.todos.filter(function(el) {
-                return !el.done;
-            })
+            return this.todos.filter(el => !el.done);
         },
-        doneItems: function() {
-            return this.todos.filter(function(el) {
-                return el.done
-            })
+        doneTodos: function () {
+            return this.todos.filter(el => !!el.done);
         }
+
     },
     created: function() {
         var self = this
@@ -124,25 +130,17 @@ var todos_app = new Vue({
             if (chrome.runtime.lastError) {
                 console.error("Runtime Error while fetching data from Chrome Storage", chrome.runtime.lastError);
             } else {
-                self.todos = items.perfect_new_tab_todos || []                
+                self.todos = items.perfect_new_tab_todos || [];   
             }
         })
     },
     methods: {
         addTodo: function(todoText) {
-            var text = this.todoText && this.todoText.trim()
-            if (text == '') {
-                this.todoText = ''
-                return
+            var text = this.todoText && this.todoText.trim();
+            if (!!text) {
+                this.todos.unshift(new TodoItem(text));
             }
-            var todo = {
-                'todoId': todoStorage.uid++,
-                'text': text,
-                'done': false,
-                'timeAdded': Date.now()
-            }
-            this.todos.push(todo)
-            this.todoText = ''
+            this.todoText = '';
         },
         checkItems: function() {
             document.getElementById('trash').style.visibility = 'visible'

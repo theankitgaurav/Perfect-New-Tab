@@ -9,7 +9,7 @@ var myMixin = {
 class BookmarkItem {
     constructor(bookmarkTreeNode) {
         this.title = bookmarkTreeNode.title;
-        this.url = bookmarkTreeNode.title;
+        this.url = bookmarkTreeNode.url;
         this.faviconUrl = 'chrome://favicon/' + bookmarkTreeNode.url;
         this.id = bookmarkTreeNode.id;
     }

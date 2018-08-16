@@ -17,7 +17,7 @@
                         <div class="panel-heading">
                             <span class="glyphicon glyphicon-stats"></span> &nbsp; Frequent Sites</div>
                         <div class="panel-body">
-                            <ul>
+                            <ul v-if="frequentSitesArray.length">
                                 <li v-for="urlObject in frequentSitesArray" title="{{urlObject.url}}">
                                     <a v-on:click="openLink(urlObject.url)">
                                         <img style="border-radius:100%" v-bind:src="urlObject.faviconUrl">&nbsp;&nbsp;{{urlObject.title}}</a>

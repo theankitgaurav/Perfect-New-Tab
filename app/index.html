@@ -9,8 +9,8 @@
 </head>
 
 <body>
-    <div id="main">
-        <div class="container">
+    <div id="main" class="center__xy__parent">
+        <div class="container center_xy__child">
             <div class="row text-muted">
                 <div class="col-xs-4 url-apps" id="f_sites">
                     <div class="panel  ">
@@ -33,14 +33,11 @@
                             <span class="glyphicon glyphicon-trash pull-right text-muted" title="Delete items" v-on:click="deleteCheckedBookmarks()"></span>
                         </div>
                         <div class="panel-body">
-                            <ul v-if="numberOfItems">
+                            <ul v-if="recentBookmarksArray.length">
                                 <li v-for="urlObject in recentBookmarksArray" title="{{urlObject.url}}">
                                     <input type="checkbox" v-model="checkedItems" v-bind:value="urlObject.id" v-if="deleteMode" /> &nbsp;
                                     <a class="text-muted" v-on:click="openLink(urlObject.url)">
                                         <img style="border-radius:100%" v-bind:src="urlObject.faviconUrl">&nbsp;&nbsp;{{urlObject.title}}</a>
-                                </li>
-                                <li v-if="numberOfItems>=10" v-on:click="numberOfItems += numberOfItems">
-                                    <center>More</center>
                                 </li>
                             </ul>
                         </div>
@@ -69,11 +66,10 @@
             </div>
         </div>
     </div>
-    <div id="footer">
-        <div class="container">
+    <div id="footer" class="center__xy__parent">
+        <div class="container center_xy__child">
             <div class="row">
                 <div class="container text-uppercase">
-                    <center>
                         <div class="col-md-2 btn" v-on:click="openLink('chrome://bookmarks')">
                             <span class="glyphicon glyphicon-bookmark footer-glyphicon"></span>
                             <br>
@@ -122,7 +118,6 @@
                                 <strong>Settings</strong>
                             </span>
                         </div>
-                    </center>
                 </div>
             </div>
         </div>

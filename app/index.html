@@ -20,7 +20,10 @@
                             <ul>
                                 <li v-for="urlObject in frequentSitesArray" title="{{urlObject.url}}">
                                     <a v-on:click="openLink(urlObject.url)">
-                                        <img style="border-radius:100%" v-bind:src="urlObject.faviconUrl">&nbsp;&nbsp;{{urlObject.title}}</a>
+                                        <img style="border-radius:100%" v-bind:src="urlObject.faviconUrl">
+                                        &nbsp;&nbsp;{{urlObject.title}}
+                                    </a>
+                                    <span v-on:click="hide(urlObject.url)">X</span>
                                 </li>
                             </ul>
                         </div>

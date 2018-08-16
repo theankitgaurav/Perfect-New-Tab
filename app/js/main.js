@@ -6,34 +6,60 @@ var myMixin = {
     }
 }
 
+class TopSite {
+    constructor(title, url, hidden=false) {
+        this.title = title;
+        this.url = url;
+        this.faviconUrl = `chrome://favicon/${url}`;
+        this.hidden = hidden;
+    }
+}
+const HIDDEN_TOPSITES = 'PNT_Hidden_Topsites';
+
 // Frequent Sites logic
 var f_sites = new Vue({
     el: '#f_sites',
     mixins: [myMixin],
     data: {
         frequentSitesArray: [],
-        numberOfItems: 10
+        hiddenTopSites: []
     },
     created: function() {
-        this.getFrequentSites();
+        this.getHiddenTopSites(this.getFrequentSites);
     },
     watch: {
-        numberOfItems: function() {
-            this.getFrequentSites();
+        hiddenTopSites: {
+            deep: true,
+            handler: function (hiddenTopSites) {
+                chrome.storage.sync.set({HIDDEN_TOPSITES: hiddenTopSites}, function() {
+                    if (chrome.runtime.lastError) {
+                        console.error ('Runtime lastError while saving data to chrome storage', chrome.runtime.lastError)
+                    }
+                })
+            }
         }
     },
     methods: {
         getFrequentSites: function() {
-            const self = this;
-            chrome.topSites.get((topSitesArr) => {
-                self.frequentSitesArray = topSitesArr.map((topSite)=>{
-                    return {
-                        'title': topSite.title,
-                        'url': topSite.url,
-                        'faviconUrl': 'chrome://favicon/' + topSite.url
-                    }
+            chrome.topSites.get((topSites = []) => {
+                this.frequentSitesArray = topSites
+                .map(el =>{
+                    return new TopSite(el.title, el.url);
+                })
+                .filter(el => {
+                    return !this.hiddenTopSites.includes(el.url);
                 });
+                console.log('this.frequentSitesArray: ' , this.frequentSitesArray)
             });
+        },
+        getHiddenTopSites: function (cb) {
+            chrome.storage.sync.get(HIDDEN_TOPSITES, function(items) {
+                this.hiddenTopSites = items;
+                cb();
+            })
+        },
+        hide: function(url) {
+            this.hiddenTopSites.push(url);
         }
     }
 })

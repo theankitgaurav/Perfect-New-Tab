@@ -57,8 +57,9 @@
                                 type="text" />
                             <ul v-if="todos.length">
                                 <li v-for="el in pendingTodos" class="todos_items">
-                                    <input type="checkbox" value="{{el.todoId}}" v-on:click="el.done = !el.done" checked="{{el.done}}">
+                                    <input type="checkbox" v-on:click="el.done = !el.done" checked="{{el.done}}">
                                     <label class="done-{{el.done}}" title="{{el.text}}" style="font-weight: normal;margin-bottom: 0px;"> {{ el.text }} </label>
+                                    <span class="delete-btn pull-right" v-on:click="el.deleted = true">x</span>
                                 </li>
                                 <li v-for="el in doneTodos" class="todos_items done-todos">
                                     <input type="checkbox" value="{{el.todoId}}" v-on:click="el.done = !el.done" checked="{{el.done}}">

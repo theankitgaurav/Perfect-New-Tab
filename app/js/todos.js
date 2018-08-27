@@ -2,7 +2,8 @@ class TodoItem {
     constructor (todoText, done = false) {
         this.text = todoText;
         this.done = done;
-        this.timeAdded = new Date();
+        this.deleted = false;
+        this.timeAdded = Date.now();
     }
 }
 
@@ -23,12 +24,11 @@ const TodosComponent = new Vue({
     },
     computed: {
         pendingTodos: function() {
-            return this.todos.filter(el => !el.done);
+            return this.todos.filter(el => !el.done && !el.deleted);
         },
         doneTodos: function () {
-            return this.todos.filter(el => !!el.done);
+            return this.todos.filter(el => !!el.done && !el.deleted);
         }
-
     },
     created: function() {
         var self = this
@@ -54,7 +54,9 @@ const TodosComponent = new Vue({
             })
         },
         save: function(todos) {
-            chrome.storage.sync.set({ 'perfect_new_tab_todos': todos }, function() {
+            const filteredTodos = todos.filter(el => !el.deleted); // Filter out the items marked as deleted before saving
+            console.log(filteredTodos)
+            chrome.storage.sync.set({ 'perfect_new_tab_todos': filteredTodos }, function() {
                 if (chrome.runtime.lastError) {
                     console.error('Error saving data to chrome storage', chrome.runtime.lastError)
                 }

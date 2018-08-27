@@ -18,32 +18,49 @@
     margin-top: 20px;
 }
 
+ul {
+    padding: 0;
+}
+
 li {
+    padding: 8px 15px;
     font-size: 1.1em;
     list-style-type: none;
-    line-height: 2.4em;
-    border-bottom: none;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    border-bottom: 1px dotted #d8e0e6;
+    border-bottom: 1px solid #EEE;
 }
 
-ul {
-    padding-left: 0px;
+li:hover {
+    cursor: pointer;
+    font-weight: 600;
+    white-space: initial;
+    word-wrap: break-word;
+    text-overflow: inherit;
+    border-bottom: #DDD 3px solid;
+}
+
+li:first-of-type {
+    padding-top:10px;
+}
+
+li:last-of-type {
+    padding-bottom:15px;
+    border-bottom: none;
 }
 
 li .delete-btn {
     opacity: 0;
-    visibility: hidden;
-    font-weight: bold;
+    display: none;
 }
 
 li:hover .delete-btn {
     opacity: 1;
-    visibility: visible;
+    display: inline;
+    font-weight: bold;
     cursor: default;
-    transition: opacity 0.5s ease-in-out;
+    transition: opacity 2s ease-in ease-in-out;
 }
 
 .done-true {
@@ -51,13 +68,20 @@ li:hover .delete-btn {
     color: #aaa;
 }
 
-.panel-body {
+.panel {
+    border-color: #625772;
+    margin: 10px;
+    overflow: auto;
+}
+
+.panel-body__no-margin {
+    margin: 0;
     height: 50vh;
     overflow: hidden;
     resize: vertical;
 }
 
-.panel-body:hover {
+.panel-body__no-margin:hover {
     overflow-y: auto;
 }
 
@@ -67,27 +91,12 @@ li:hover .delete-btn {
     border-color: #625772;
 }
 
-.panel {
-    border-color: #625772;
-    margin: 10px;
-    overflow: auto;
-}
-
-a {
-    color: inherit;
-    display: inline-block;
-    cursor: pointer;
-}
-
-a:hover,
-a:focus {
-    color: #555;
-    font-weight: bold;
-    text-decoration: none;
-}
-
 #trash {
     visibility: hidden;
+}
+
+.todo-form {
+    margin: 10px 15px 0 15px;
 }
 
 .btn {

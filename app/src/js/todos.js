@@ -48,14 +48,8 @@ const TodosComponent = new Vue({
             }
             this.todoText = '';
         },
-        deleteItems: function(){
-            this.todos = this.todos.filter(function(el){
-                return el.done === false
-            })
-        },
         save: function(todos) {
             const filteredTodos = todos.filter(el => !el.deleted); // Filter out the items marked as deleted before saving
-            console.log(filteredTodos)
             chrome.storage.sync.set({ 'perfect_new_tab_todos': filteredTodos }, function() {
                 if (chrome.runtime.lastError) {
                     console.error('Error saving data to chrome storage', chrome.runtime.lastError)

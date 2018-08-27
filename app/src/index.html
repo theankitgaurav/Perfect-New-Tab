@@ -3,67 +3,70 @@
 
 <head>
     <title>New Tab</title>
-    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
     <div id="main" class="center__xy__parent">
         <div class="container center_xy__child">
-            <div class="row text-muted">
-                <div class="col-xs-4 url-apps" id="f_sites">
+            <div class="row">
+                <div class="col-xs-4 url-apps" id="frequent-sites">
                     <div class="panel  ">
                         <div class="panel-heading">
                             <span class="glyphicon glyphicon-stats"></span> &nbsp; Frequent Sites</div>
-                        <div class="panel-body">
-                            <ul v-if="topSitesArray.length">
-                                <li v-for="urlObject in topSitesArray" title="{{urlObject.url}}">
-                                    <a v-on:click="openLink(urlObject.url)">
-                                        <img style="border-radius:100%" v-bind:src="urlObject.faviconUrl">
-                                        &nbsp;&nbsp;{{urlObject.title}}
-                                    </a>
+                        <div class="panel-body__no-margin">
+                            <ul v-if="topSitesForUser.length">
+                                <li v-for="urlObject in topSitesForUser" v-on:click="openLink(urlObject.url)">
+                                    <span>
+                                        <img style="border-radius:100%" v-bind:src="urlObject.faviconUrl"> &nbsp;&nbsp;{{urlObject.title}}
+                                    </span>
+                                    <span class="delete-btn pull-right" v-on:click.stop="deleteItem(urlObject.url)" title="Delete">
+                                        x
+                                    </span>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-4 url-apps" id="r_bookmarks">
+                <div class="col-xs-4 url-apps" id="recent-bookmarks">
                     <div class="panel">
                         <div class="panel-heading">
                             <span class="glyphicon glyphicon-bookmark"></span> &nbsp; Recent Bookmarks
-                            <span class="glyphicon glyphicon-trash pull-right text-muted" title="Delete items" v-on:click="deleteCheckedBookmarks()"></span>
                         </div>
-                        <div class="panel-body">
+                        <div class="panel-body__no-margin">
                             <ul v-if="recentBookmarksArray.length">
-                                <li v-for="urlObject in recentBookmarksArray" title="{{urlObject.url}}">
-                                    <input type="checkbox" v-model="checkedItems" v-bind:value="urlObject.id" v-if="deleteMode" /> &nbsp;
-                                    <a class="text-muted" v-on:click="openLink(urlObject.url)">
-                                        <img style="border-radius:100%" v-bind:src="urlObject.faviconUrl">&nbsp;&nbsp;{{urlObject.title}}</a>
+                                <li v-for="urlObject in recentBookmarksArray" v-on:click="openLink(urlObject.url)">
+                                    <span>
+                                        <img style="border-radius:100%" v-bind:src="urlObject.faviconUrl" /> &nbsp;&nbsp;{{urlObject.title}}
+                                    </span>
+                                    <span class="delete-btn pull-right" v-on:click.stop="deleteItem(urlObject.id)" title="Delete">x</span>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div class="col-xs-4">
-                    <div class="panel  " id="todos_app">
+                    <div class="panel" id="todos_app">
                         <div class="panel-heading">
-                            <span class="glyphicon glyphicon-check"></span> &nbsp;
-                            <span class="text-uppercase"></span>{{app_name}}</span>
-                            <span class="glyphicon glyphicon-trash text-muted pull-right" title="Delete items" v-on:click="deleteItems()"></span>
+                            <span class="glyphicon glyphicon-check"></span> &nbsp; {{app_name}}
                         </div>
-                        <div class="panel-body">
-                            <input v-model="todoText" placeholder="What needs to be done" class="form-control" v-on:keyup.enter="addTodo" maxlength=144
-                                type="text" />
+                        <div class="panel-body__no-margin">
+                            <div class="todo-form ">
+                                <input v-model="todoText" placeholder="What needs to be done" class="form-control" v-on:keyup.enter="addTodo" maxlength=144
+                                    type="text" />
+                            </div>
                             <ul v-if="todos.length">
                                 <li v-for="el in pendingTodos" class="todos_items">
                                     <input type="checkbox" v-on:click="el.done = !el.done" checked="{{el.done}}">
-                                    <label class="done-{{el.done}}" title="{{el.text}}" style="font-weight: normal;margin-bottom: 0px;"> {{ el.text }} </label>
-                                    <span class="delete-btn pull-right" v-on:click="el.deleted = true">x</span>
+                                    <label style="font-weight: normal;margin-bottom: 0px;"> {{ el.text }} </label>
+                                    <span class="delete-btn pull-right" v-on:click="el.deleted = true" title="Delete">x</span>
                                 </li>
                                 <li v-for="el in doneTodos" class="todos_items done-todos">
                                     <input type="checkbox" value="{{el.todoId}}" v-on:click="el.done = !el.done" checked="{{el.done}}">
-                                    <label class="done-{{el.done}}" title="{{el.text}}" style="font-weight: normal;margin-bottom: 0px;"> {{ el.text }} </label>
+                                    <label class="done-true" style="font-weight: normal;margin-bottom: 0px;"> {{ el.text }} </label>
+                                    <span class="delete-btn pull-right" v-on:click="el.deleted = true" title="Delete">x</span>
                                 </li>
                             </ul>
                         </div>
@@ -104,8 +107,8 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="js/vue.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="../static/js/vue.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript" src="js/most-visited.js"></script>
     <script type="text/javascript" src="js/recent-bookmarks.js"></script>
     <script type="text/javascript" src="js/todos.js"></script>

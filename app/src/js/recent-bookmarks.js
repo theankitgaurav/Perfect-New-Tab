@@ -8,33 +8,18 @@ class BookmarkItem {
 }
 
 const RecentBookmarksComponent = new Vue({
-    el: '#r_bookmarks',
+    el: '#recent-bookmarks',
     mixins: [myMixin],
     data: {
         recentBookmarksArray: [],
-        checkedItems: [],
-        deleteMode: false
     },
     created: function() {
         this.getRecentBookmarks()
     },
-    computed: {
-      focusDeleteBtn: function(){
-        return !this.deleteMode
-      }
-    },
     methods: {
-        deleteCheckedBookmarks: function() {
-          if(this.deleteMode === false){
-            this.deleteMode = true
-          } else {
-            this.checkedItems.forEach(function(elem){
-              chrome.bookmarks.remove(elem)
-            })
-            this.checkedItems = []
-            this.getRecentBookmarks()
-            this.deleteMode = false
-          }
+        deleteItem: function(bookmarkId) {
+            chrome.bookmarks.remove(bookmarkId);
+            this.getRecentBookmarks();
         },
         getRecentBookmarks: function() {
             const self = this

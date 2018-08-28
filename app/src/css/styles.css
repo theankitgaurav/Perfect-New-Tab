@@ -27,18 +27,18 @@ li {
     font-size: 1.1em;
     list-style-type: none;
     white-space: nowrap;
-    overflow: hidden;
     text-overflow: ellipsis;
-    border-bottom: 1px solid #EEE;
+    overflow: hidden;
+    border-bottom: 1px solid #DDD;
+    transition: white-space 0.5s ease-in-out;
 }
 
 li:hover {
     cursor: pointer;
-    font-weight: 600;
-    white-space: initial;
     word-wrap: break-word;
-    text-overflow: inherit;
-    border-bottom: #DDD 3px solid;
+    white-space: normal;
+    background-color: #EEE;
+    border-bottom: 1px solid #AAA;
 }
 
 li:first-of-type {
@@ -53,6 +53,7 @@ li:last-of-type {
 li .delete-btn {
     opacity: 0;
     display: none;
+    transition: display 1s ease-in; 
 }
 
 li:hover .delete-btn {
@@ -60,7 +61,6 @@ li:hover .delete-btn {
     display: inline;
     font-weight: bold;
     cursor: default;
-    transition: opacity 2s ease-in ease-in-out;
 }
 
 .done-true {
@@ -82,7 +82,8 @@ li:hover .delete-btn {
 }
 
 .panel-body__no-margin:hover {
-    overflow-y: auto;
+    overflow-y: scroll;
+    transition: overflow-y 1s ease-in;
 }
 
 .panel>.panel-heading {
@@ -141,7 +142,7 @@ transform: translate(-50%, -50%);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgb(158, 155, 155); 
+    background: #CCC; 
 }
 
 /* Utility classes end here */

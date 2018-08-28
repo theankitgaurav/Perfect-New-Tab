@@ -11,10 +11,12 @@ const MostVisitedSitesComponent = new Vue({
     mixins: [myMixin],
     data: {
         topSitesArray: [],
-        hiddenSites: []
+        hiddenSites: [],
+        showAll: false
     },
     computed: {
         topSitesForUser: function () {
+            if (!!this.showAll) return this.topSitesArray;
             return this.topSitesArray.filter(el => !this.hiddenSites.includes(el.url));
         }
     },

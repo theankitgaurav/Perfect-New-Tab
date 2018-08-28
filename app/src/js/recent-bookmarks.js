@@ -7,15 +7,20 @@ class BookmarkItem {
     }
 }
 
+const MIN_ITEMS = 20
+const MAX_ITEMS = 1000;
+
 const RecentBookmarksComponent = new Vue({
     el: '#recent-bookmarks',
     mixins: [myMixin],
     data: {
         recentBookmarksArray: [],
-        defaultNumberOfItems: 10
+        defaultNumberOfItems: MIN_ITEMS,
+        showAll: false
     },
     watch: {
-        defaultNumberOfItems: function(defaultNumberOfItems) {
+        showAll: function(showAll) {
+            this.defaultNumberOfItems = (!!showAll) ? MAX_ITEMS : MIN_ITEMS;
             this.getRecentBookmarks();
         }
     },

@@ -12,7 +12,8 @@ const TodosComponent = new Vue({
     data: {
         app_name: 'Todos',
         todos: [],
-        todoText: ''
+        todoText: '',
+        showAll: false
     },
     watch: {
         todos: {

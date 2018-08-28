@@ -74,6 +74,15 @@ li:hover .delete-btn {
     overflow: auto;
 }
 
+.expand-toggle {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.panel:hover .expand-toggle {
+    opacity: 0.5;
+}
+
 .panel-body__no-margin {
     margin: 0;
     height: 50vh;

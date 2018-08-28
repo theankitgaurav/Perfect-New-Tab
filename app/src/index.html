@@ -15,7 +15,10 @@
                 <div class="col-xs-4 url-apps" id="frequent-sites">
                     <div class="panel  ">
                         <div class="panel-heading">
-                            <span class="glyphicon glyphicon-stats"></span> &nbsp; Frequent Sites</div>
+                            <span class="glyphicon glyphicon-stats"></span> &nbsp; Frequent Sites
+                            <span v-if="showAll" @click="showAll = !showAll" class="expand-toggle pull-right glyphicon glyphicon-minus" title="Hide hidden"></span>
+                            <span v-else @click="showAll = !showAll" class="expand-toggle pull-right glyphicon glyphicon-plus" title="Show Hidden"></span>
+                        </div>
                         <div class="panel-body__no-margin">
                             <ul v-if="topSitesForUser.length">
                                 <li v-for="urlObject in topSitesForUser" v-on:click="openLink(urlObject.url)">
@@ -34,6 +37,8 @@
                     <div class="panel">
                         <div class="panel-heading">
                             <span class="glyphicon glyphicon-bookmark"></span> &nbsp; Recent Bookmarks
+                            <span v-if="showAll" @click="showAll = !showAll" class="expand-toggle pull-right glyphicon glyphicon-minus" title="Show less"></span>
+                            <span v-else @click="showAll = !showAll" class="expand-toggle pull-right glyphicon glyphicon-plus" title="Show all"></span>
                         </div>
                         <div class="panel-body__no-margin">
                             <ul v-if="recentBookmarksArray.length">
@@ -44,7 +49,6 @@
                                     <span class="delete-btn pull-right" v-on:click.stop="deleteItem(urlObject.id)" title="Delete">x</span>
                                 </li>
                             </ul>
-                            <span class="show-all-btn" v-on:click="defaultNumberOfItems = defaultNumberOfItems + 1000">Show all</span>
                         </div>
                     </div>
                 </div>
@@ -52,6 +56,8 @@
                     <div class="panel" id="todos_app">
                         <div class="panel-heading">
                             <span class="glyphicon glyphicon-check"></span> &nbsp; {{app_name}}
+                            <span v-if="showAll" @click="showAll = !showAll" class="expand-toggle pull-right glyphicon glyphicon-minus" title="Hide done items"></span>
+                            <span v-else @click="showAll = !showAll" class="expand-toggle pull-right glyphicon glyphicon-plus" title="Show done items"></span>
                         </div>
                         <div class="panel-body__no-margin">
                             <div class="todo-form ">
@@ -64,7 +70,7 @@
                                     <label style="font-weight: normal;margin-bottom: 0px;"> {{ el.text }} </label>
                                     <span class="delete-btn pull-right" v-on:click="el.deleted = true" title="Delete">x</span>
                                 </li>
-                                <li v-for="el in doneTodos" class="todos_items done-todos">
+                                <li v-if="showAll" v-for="el in doneTodos" class="todos_items done-todos">
                                     <input type="checkbox" value="{{el.todoId}}" v-on:click="el.done = !el.done" checked="{{el.done}}">
                                     <label class="done-true" style="font-weight: normal;margin-bottom: 0px;"> {{ el.text }} </label>
                                     <span class="delete-btn pull-right" v-on:click="el.deleted = true" title="Delete">x</span>

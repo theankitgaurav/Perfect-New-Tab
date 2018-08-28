@@ -12,9 +12,15 @@ const RecentBookmarksComponent = new Vue({
     mixins: [myMixin],
     data: {
         recentBookmarksArray: [],
+        defaultNumberOfItems: 10
+    },
+    watch: {
+        defaultNumberOfItems: function(defaultNumberOfItems) {
+            this.getRecentBookmarks();
+        }
     },
     created: function() {
-        this.getRecentBookmarks()
+        this.getRecentBookmarks();
     },
     methods: {
         deleteItem: function(bookmarkId) {
@@ -23,8 +29,7 @@ const RecentBookmarksComponent = new Vue({
         },
         getRecentBookmarks: function() {
             const self = this
-            const MAX_BOOKMARKS = 999;
-            chrome.bookmarks.getRecent(MAX_BOOKMARKS, (results) => {
+            chrome.bookmarks.getRecent(self.defaultNumberOfItems, (results) => {
                 self.recentBookmarksArray = results.map(el=> new BookmarkItem(el));
             })
         }

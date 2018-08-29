@@ -33,7 +33,11 @@
                                     <span >{{showAll ? 'Hide' : 'Show'}} hidden items {{showAll ? '[-]' : '[+]'}}</span>
                                 </div>
                             </ul>
-                            
+                            <div v-else class="center__xy__parent empty-state">
+                                <div class="center_xy__child">
+                                    <span>No frequent sites yet.</span>
+                                </div>
+                            </div>                            
                         </div>
                     </div>
                 </div>
@@ -55,6 +59,11 @@
                                     <span >Show {{showAll ? 'less' : 'all'}} items {{showAll ? '[-]' : '[+]'}}</span>
                                 </div>
                             </ul>
+                            <div v-else class="center__xy__parent empty-state">
+                                <div class="center_xy__child">
+                                    <div>Nothing bookmarked yet.</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

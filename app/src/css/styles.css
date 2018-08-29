@@ -172,5 +172,9 @@ transform: translate(-50%, -50%);
     background: #CCC; 
 }
 
+.empty-state {
+    width: 100%;
+    height: 100%;
+}
 /* Utility classes end here */
 /* ------------------------- */

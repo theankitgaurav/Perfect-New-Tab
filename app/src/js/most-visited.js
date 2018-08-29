@@ -35,7 +35,13 @@ const MostVisitedSitesComponent = new Vue({
     },
     methods: {
         deleteItem: function (url) {
-            this.hiddenSites.push(url);
+            let hiddenSitesSet = new Set(this.hiddenSites);
+            if (hiddenSitesSet.has(url)) {
+                hiddenSitesSet.delete(url);
+                this.hiddenSites = [...hiddenSitesSet];
+            } else {
+                this.hiddenSites.push(url);
+            }
             chrome.storage.sync.set({ 'perfect_new_tab_hidden_sites': this.hiddenSites }, function() {
                 if (chrome.runtime.lastError) {
                     console.error('Error saving data to chrome storage', chrome.runtime.lastError)

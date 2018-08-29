@@ -63,6 +63,24 @@ li:hover .delete-btn {
     cursor: default;
 }
 
+.show-more-toggle {
+    visibility: hidden;
+    cursor: pointer;
+    /* text-align: center; */
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-left: 15px;
+    opacity: .40;
+}
+
+.panel:hover .show-more-toggle {
+    visibility: visible;
+}
+
+.show-more-toggle:hover {
+    opacity: 1;
+}
+
 .done-true {
     text-decoration: line-through;
     color: #aaa;

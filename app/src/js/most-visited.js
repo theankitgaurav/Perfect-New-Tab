@@ -3,6 +3,7 @@ class TopSite {
         this.title = MostVisitedURL.title;
         this.url = MostVisitedURL.url;
         this.faviconUrl = `chrome://favicon/${MostVisitedURL.url}`;
+        this.hidden = false;
     }
 }
 
@@ -10,43 +11,49 @@ const MostVisitedSitesComponent = new Vue({
     el: '#frequent-sites',
     mixins: [myMixin],
     data: {
-        topSitesArray: [],
-        hiddenSites: [],
+        topSitesArray: [], // Shape: [Topsite]
         showAll: false
     },
     computed: {
         topSitesForUser: function () {
-            if (!!this.showAll) return this.topSitesArray;
-            return this.topSitesArray.filter(el => !this.hiddenSites.includes(el.url));
+            return (this.showAll) ? this.topSitesArray : this.topSitesArray.filter(el => !el.hidden);
         }
+    },
+    watch: {
+        topSitesArray: {
+            deep: true,
+            handler: function(updatedTopSitesArray) {
+                const hiddenSites = updatedTopSitesArray.filter(el => el.hidden);
+                chrome.storage.sync.set({ 'perfect_new_tab_hidden_sites': hiddenSites }, function() {
+                    if (chrome.runtime.lastError) {
+                        console.error('Error saving data to chrome storage', chrome.runtime.lastError)
+                    }
+                });
+            }
+        }
+
     },
     created: function() {
         const self = this;
         chrome.topSites.get((topSites) => {
-            self.topSitesArray = (topSites || []).map(MostVisitedURL => new TopSite(MostVisitedURL));
-        });
-        chrome.storage.sync.get('perfect_new_tab_hidden_sites', function(hiddenSites) {
-            if (chrome.runtime.lastError) {
-                console.error("Error fetching user's hidden top sites", chrome.runtime.lastError);
-            } else {
-                self.hiddenSites = hiddenSites.perfect_new_tab_hidden_sites || [];   
-            }
-        });
-    },
-    methods: {
-        deleteItem: function (url) {
-            let hiddenSitesSet = new Set(this.hiddenSites);
-            if (hiddenSitesSet.has(url)) {
-                hiddenSitesSet.delete(url);
-                this.hiddenSites = [...hiddenSitesSet];
-            } else {
-                this.hiddenSites.push(url);
-            }
-            chrome.storage.sync.set({ 'perfect_new_tab_hidden_sites': this.hiddenSites }, function() {
+
+            const topSitesArr = (topSites || []).map(MostVisitedURL => new TopSite(MostVisitedURL));
+
+            chrome.storage.sync.get('perfect_new_tab_hidden_sites', function(hiddenSites) {
                 if (chrome.runtime.lastError) {
-                    console.error('Error saving data to chrome storage', chrome.runtime.lastError)
+                    console.error("Error fetching user's hidden top sites", chrome.runtime.lastError);
+                } else {
+                    const hiddenUrlsArr = hiddenSites.perfect_new_tab_hidden_sites.map(el => el.url) || [];
+                    self.topSitesArray = topSitesArr.map(el => {
+                        if (hiddenUrlsArr.includes(el.url)) {
+                            el.hidden = true;
+                        }
+                        return el;
+                    });
                 }
-            })
-        }
+            });
+
+        });
+
     }
 })

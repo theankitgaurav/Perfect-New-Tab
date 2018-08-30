@@ -29,6 +29,11 @@ const TodosComponent = new Vue({
         },
         doneTodos: function () {
             return this.todos.filter(el => !!el.done && !el.deleted);
+        },
+        userTodos: function () {
+            return this.todos.sort((a, b) => {
+                return !!a.done - !!b.done;
+            })
         }
     },
     created: function() {

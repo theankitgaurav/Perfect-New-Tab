@@ -3,7 +3,7 @@
     "name": "Perfect New Tab",
     "description": "This extension replaces the new tab page with a more feature-rich and lightweight page.",
     "homepage_url": "https://github.com/ankitgaurav/Perfect-New-Tab",
-    "version": "4.0",
+    "version": "5.2",
     "chrome_url_overrides": {
         "newtab": "src/index.html"
     },

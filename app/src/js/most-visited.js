@@ -39,11 +39,12 @@ const MostVisitedSitesComponent = new Vue({
 
             const topSitesArr = (topSites || []).map(MostVisitedURL => new TopSite(MostVisitedURL));
 
-            chrome.storage.sync.get('perfect_new_tab_hidden_sites', function(hiddenSites) {
+            chrome.storage.sync.get('perfect_new_tab_hidden_sites', function(result) {
                 if (chrome.runtime.lastError) {
                     console.error("Error fetching user's hidden top sites", chrome.runtime.lastError);
                 } else {
-                    const hiddenUrlsArr = hiddenSites.perfect_new_tab_hidden_sites.map(el => el.url) || [];
+                    const hiddenSites = result.perfect_new_tab_hidden_sites || [];
+                    const hiddenUrlsArr = hiddenSites.map(el => el.url);
                     self.topSitesArray = topSitesArr.map(el => {
                         if (hiddenUrlsArr.includes(el.url)) {
                             el.hidden = true;

@@ -1,15 +1,34 @@
-# Perfect-New-Tab :fire:
-A Google Chrome extension that replaces the existing new tab with a more useful and feature-rich one. The extension can be installed for free from [here](https://goo.gl/HhJTdk)
+<h1 align="center">welcome to Perfect-New-Tab 👋</h1>
+<p>
+  <img alt="Version" src="https://img.shields.io/badge/version-5.3-blue.svg?cacheSeconds=2592000" />
+  <img alt="Maintenance" src="https://img.shields.io/badge/Maintained-yes-blue.svg" />
+  <a href="https://github.com/alok722/elegant-tab/blob/master/LICENSE" target="_blank">
+  </a>
+</p>
 
-# Screenshot :camera:
-![Perfect New Tab Screenshot](https://lh3.googleusercontent.com/3geJd4fakGaK0hSNsDGMlWvCdrPkNlv5vGJCBSWBGbQYE23EFV6N6tDbmuZejhX0xrZrbP97Nw=s640-h400-e365-rw)
+> A Google Chrome extension that replaces the existing new tab with a more useful and feature-rich one. The extension can be installed for free from [here](https://goo.gl/HhJTdk)
 
-# Features :wink:
+## 📸 screenshot
+
+![Perfect New Tab Screenshot](./images/screenshot_latest.PNG)
+
+## ❓ what is it?
+
+A Google Chrome extension that replaces the existing new tab with a more useful and feature-rich extension.
+
+## 🤔 why perfect new tab?
+
 + Useful shortcuts in the dock (Like that of Firefox)
 + Visit the Most frequent sites with ease
 + A built-in simple Todos manager 
++ Change colors as your eye pleases
++ Very Lightweight
 
-# Contributions :heart_eyes:
+## 🤝 contributing
 Comments and improvements are more than welcome!
 
 Feel free to fork and open a pull request. Please make your changes in a specific branch and request to pull into master! If you can, please make sure the extensions fully works before sending the PR, as that will help speed up the process.
+
+## 🙌 show your support
+
+give a ⭐️ if you liked this!

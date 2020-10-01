@@ -7,7 +7,6 @@
 #footer {
     background-color: #4A2C2C;
     height: 20vh;
-    border-top: 1px solid hsla(0, 0%, 0%, .03);
 }
 
 .footer-glyphicon {
@@ -29,7 +28,6 @@ li {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    border-bottom: 1px solid #DDD;
     transition: white-space 0.5s ease-in-out;
 }
 
@@ -38,7 +36,6 @@ li:hover {
     word-wrap: break-word;
     white-space: normal;
     background-color: #EEE;
-    border-bottom: 1px solid #AAA;
 }
 
 li:first-of-type {
@@ -87,9 +84,9 @@ li:hover .delete-btn {
 }
 
 .panel {
-    border-color: #625772;
     margin: 10px;
     overflow: auto;
+    border: 0px!important;
 }
 
 .expand-toggle {
@@ -177,4 +174,17 @@ transform: translate(-50%, -50%);
     height: 100%;
 }
 /* Utility classes end here */
+
+	
+/* customization css start here */
+#customization_div {
+    text-align: center;
+    padding: 10px;
+}
+#customization_div input {
+    margin-right: 1vh;
+  }
+  
+/* customization css end here */
+
 /* ------------------------- */

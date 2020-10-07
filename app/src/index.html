@@ -4,6 +4,8 @@
 <head>
     <title>New Tab</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link href="https://fonts.googleapis.com/css?family=Mulish" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital@1" rel="stylesheet">
     <link rel="stylesheet" href="../static/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -13,50 +15,54 @@
         <div class="container center_xy__child">
             <div class="row">
                 <div class="col-xs-4 url-apps" id="frequent-sites">
-                    <div class="panel  ">
-                        <div class="panel-heading">
+                    <div class="panel">
+                        <div class="panel-heading" id="panel1">
                             <span class="glyphicon glyphicon-stats"></span> &nbsp; Frequent Sites
                         </div>
                         <div class="panel-body__no-margin">
                             <ul v-if="topSitesForUser.length">
                                 <li v-for="urlObject in topSitesForUser" v-on:click="openLink(urlObject.url)">
                                     <span class="done-{{urlObject.hidden}}">
-                                        <img style="border-radius:100%" v-bind:src="urlObject.faviconUrl"> &nbsp;&nbsp;{{urlObject.title}}
+                                        <img style="border-radius:100%" v-bind:src="urlObject.faviconUrl">
+                                        &nbsp;&nbsp;{{urlObject.title}}
                                     </span>
-                                    <span class="delete-btn pull-right" 
-                                        v-on:click.stop="urlObject.hidden = !urlObject.hidden" 
+                                    <span class="delete-btn pull-right"
+                                        v-on:click.stop="urlObject.hidden = !urlObject.hidden"
                                         title="{{(urlObject.hidden) ? 'Unhide' : 'Hide'}}">
                                         x
                                     </span>
                                 </li>
-                                <div @click="showAll = !showAll" v-show="topSitesArray.length > topSitesForUser.length" class="show-more-toggle">
-                                    <span >{{showAll ? 'Hide' : 'Show'}} hidden items {{showAll ? '[-]' : '[+]'}}</span>
+                                <div @click="showAll = !showAll" v-show="topSitesArray.length > topSitesForUser.length"
+                                    class="show-more-toggle">
+                                    <span>{{showAll ? 'Hide' : 'Show'}} hidden items {{showAll ? '[-]' : '[+]'}}</span>
                                 </div>
                             </ul>
                             <div v-else class="center__xy__parent empty-state">
                                 <div class="center_xy__child">
                                     <span>No frequent sites yet.</span>
                                 </div>
-                            </div>                            
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-xs-4 url-apps" id="recent-bookmarks">
                     <div class="panel">
-                        <div class="panel-heading">
+                        <div class="panel-heading" id="panel2">
                             <span class="glyphicon glyphicon-bookmark"></span> &nbsp; Recent Bookmarks
                         </div>
                         <div class="panel-body__no-margin">
                             <ul v-if="recentBookmarksArray.length">
                                 <li v-for="urlObject in recentBookmarksArray" v-on:click="openLink(urlObject.url)">
                                     <span>
-                                        <img style="border-radius:100%" v-bind:src="urlObject.faviconUrl" /> &nbsp;&nbsp;
+                                        <img style="border-radius:100%" v-bind:src="urlObject.faviconUrl" />
+                                        &nbsp;&nbsp;
                                         {{urlObject.title}}
                                     </span>
-                                    <span class="delete-btn pull-right" v-on:click.stop="deleteItem(urlObject.id)" title="Delete">x</span>
+                                    <span class="delete-btn pull-right" v-on:click.stop="deleteItem(urlObject.id)"
+                                        title="Delete">x</span>
                                 </li>
                                 <div @click="showAll = !showAll" class="show-more-toggle">
-                                    <span >Show {{showAll ? 'less' : 'all'}} items {{showAll ? '[-]' : '[+]'}}</span>
+                                    <span>Show {{showAll ? 'less' : 'all'}} items {{showAll ? '[-]' : '[+]'}}</span>
                                 </div>
                             </ul>
                             <div v-else class="center__xy__parent empty-state">
@@ -69,29 +75,34 @@
                 </div>
                 <div class="col-xs-4">
                     <div class="panel" id="todos_app">
-                        <div class="panel-heading">
+                        <div class="panel-heading" id="panel3">
                             <span class="glyphicon glyphicon-check"></span> &nbsp; {{app_name}}
                         </div>
                         <div class="panel-body__no-margin">
                             <div class="todo-form ">
-                                <input v-model="todoText" placeholder="What needs to be done" class="form-control" v-on:keyup.enter="addTodo" maxlength=144
-                                    type="text" />
+                                <input v-model="todoText" placeholder="What needs to be done" class="form-control"
+                                    v-on:keyup.enter="addTodo" maxlength=144 type="text" />
                             </div>
                             <ul v-if="todos.length">
                                 <li v-for="el in pendingTodos" class="todos_items">
                                     <input type="checkbox" v-on:click="el.done = !el.done" checked="{{el.done}}">
                                     <label style="font-weight: normal;margin-bottom: 0px;"> {{ el.text }} </label>
-                                    <span class="delete-btn pull-right" v-on:click="el.deleted = true" title="Delete">x</span>
+                                    <span class="delete-btn pull-right" v-on:click="el.deleted = true"
+                                        title="Delete">x</span>
                                 </li>
                                 <div v-if="showAll">
                                     <li v-for="el in doneTodos" class="todos_items done-todos">
-                                        <input type="checkbox" value="{{el.todoId}}" v-on:click="el.done = !el.done" checked="{{el.done}}">
-                                        <label class="done-true" style="font-weight: normal;margin-bottom: 0px;"> {{ el.text }} </label>
-                                        <span class="delete-btn pull-right" v-on:click="el.deleted = true" title="Delete">x</span>
+                                        <input type="checkbox" value="{{el.todoId}}" v-on:click="el.done = !el.done"
+                                            checked="{{el.done}}">
+                                        <label class="done-true" style="font-weight: normal;margin-bottom: 0px;">
+                                            {{ el.text }} </label>
+                                        <span class="delete-btn pull-right" v-on:click="el.deleted = true"
+                                            title="Delete">x</span>
                                     </li>
                                 </div>
                                 <div @click="showAll = !showAll" v-show="doneTodos.length" class="show-more-toggle">
-                                    <span >{{showAll ? 'Hide' : 'Show'}} completed items {{showAll ? '[-]' : '[+]'}}</span>
+                                    <span>{{showAll ? 'Hide' : 'Show'}} completed items
+                                        {{showAll ? '[-]' : '[+]'}}</span>
                                 </div>
                             </ul>
                         </div>
@@ -137,6 +148,7 @@
     <script type="text/javascript" src="js/most-visited.js"></script>
     <script type="text/javascript" src="js/recent-bookmarks.js"></script>
     <script type="text/javascript" src="js/todos.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
 </body>
 
 </html>

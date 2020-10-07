@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link href="https://fonts.googleapis.com/css?family=Mulish" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital@1" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/option-styles.css">
+    <title>Customization</title>
+</head>
+
+<body>
+    <div id="main-option">
+        <div class="row">
+            <div class="col-xs-7 col-xs-offset-3">
+                <div class="panel" id="customization_app">
+                    <div class="panel-heading" id="panel4">
+                        <span class="glyphicon glyphicon-cog"></span> &nbsp; Customization
+                    </div>
+                    <div>
+                        <form>
+                            <div id="customization_div">
+                                <label for="headbgcolor">Panel:</label>
+                                <input type="color" id="headbgcolor" list="colorList" value="#625772">
+                                <label for="bodybgcolor">Body:</label>
+                                <input type="color" id="bodybgcolor" list="colorList" value="#537780">
+                                <label for="footerbgcolor">Footer:</label>
+                                <input type="color" id="footerbgcolor" list="colorList" value="#4A2C2C">
+                                <label for="font">Font</label>
+                                <select id="font">
+                                    <option value="'Raleway', sans-serif" selected>Raleway</option>
+                                    <option value="Mulish">Mulish</option>
+                                    <option value="Roboto">Roboto italic</option>
+                                    <option value="'serif">Serif</option>
+                                </select>
+                            </div>
+                            <datalist id="colorList">
+                                <option value="#93B7BE">Dark Sky Blue</option>
+                                <option value="#554348">Dark Liver</option>
+                                <option value="#d4f5f5">Light Cyan</option>
+                                <option value="#8c9a9e">Cadet Grey</option>
+                                <option value="#747578">Sonic Silver</option>
+                                <option value="#ffe66d">Naples Yellow</option>
+                                <option value="#086788">Blue Sapphire</option>
+                                <option value="#274472">Dark Blue</option>
+                                <option value="#C3E0E5">Baby Blue</option>
+                                <option value="#525b76">Independence</option>
+                            </datalist>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col text-center">
+                    <button id="save" class="button button2">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/customization.js"></script>
+</body>
+
+</html>

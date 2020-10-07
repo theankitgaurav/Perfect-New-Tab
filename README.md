@@ -10,7 +10,7 @@
 
 ## 📸 screenshot
 
-![Perfect New Tab Screenshot](./images/screenshot_latest.PNG)
+![Perfect New Tab Screenshot](./images/demo-new.PNG)
 
 ## ❓ what is it?
 
@@ -28,6 +28,9 @@ A Google Chrome extension that replaces the existing new tab with a more useful 
 Comments and improvements are more than welcome!
 
 Feel free to fork and open a pull request. Please make your changes in a specific branch and request to pull into master! If you can, please make sure the extensions fully works before sending the PR, as that will help speed up the process.
+
+## 😎 contributer
++ Alok Raj : [LinkedIn](https://linkedin.com/in/alok722) [GitHub](https://github.com/alok722)
 
 ## 🙌 show your support
 

@@ -1,59 +1,85 @@
-let head1 = document.getElementById("panel1");
-let head2 = document.getElementById("panel2");
-let head3 = document.getElementById("panel3");
-let head4 = document.getElementById("panel4");
-let body = document.getElementById("main");
-let footer_new = document.getElementById("footer");
-
-let headbgcolor = document.getElementById("headbgcolor");
-let bodybgcolor = document.getElementById("bodybgcolor");
-let footerbgcolor = document.getElementById("footerbgcolor");
-let font = document.getElementById("font");
-
-if (!localStorage.getItem("headbgcolor")) {
-  populateStorage();
-} else {
-  setStyles();
-}
+document.getElementById("save").addEventListener("click", populateStorage);
 
 function populateStorage() {
-  localStorage.setItem(
-    "headbgcolor",
-    document.getElementById("headbgcolor").value
+  chrome.storage.sync.set(
+    { headbgcolor: document.getElementById("headbgcolor").value },
+    function () {
+      console.log(
+        "headbgcolor " + document.getElementById("headbgcolor").value
+      );
+    }
   );
-  localStorage.setItem(
-    "bodybgcolor",
-    document.getElementById("bodybgcolor").value
+  chrome.storage.sync.set(
+    { bodybgcolor: document.getElementById("bodybgcolor").value },
+    function () {
+      console.log(
+        "bodybgcolor " + document.getElementById("bodybgcolor").value
+      );
+    }
   );
-  localStorage.setItem(
-    "footerbgcolor",
-    document.getElementById("footerbgcolor").value
+  chrome.storage.sync.set(
+    { footerbgcolor: document.getElementById("footerbgcolor").value },
+    function () {
+      console.log(
+        "footerbgcolor " + document.getElementById("footerbgcolor").value
+      );
+    }
   );
-  localStorage.setItem("font", document.getElementById("font").value);
-  setStyles();
+  chrome.storage.sync.set(
+    { font: document.getElementById("font").value },
+    function () {
+      console.log("font " + document.getElementById("font").value);
+    }
+  );
+
+  chrome.storage.sync.get(["headbgcolor"], function (result) {
+    document.getElementById("panel4").style.backgroundColor =
+      result.headbgcolor;
+    document.getElementById("headbgcolor").value = result.headbgcolor;
+  });
+
+  chrome.storage.sync.get(["bodybgcolor"], function (result) {
+    document.getElementById("main-option").style.backgroundColor = result.bodybgcolor;
+    document.getElementById("bodybgcolor").value = result.bodybgcolor;
+  });
+
+  chrome.storage.sync.get(["footerbgcolor"], function (result) {
+    document.getElementById("footerbgcolor").value = result.footerbgcolor;
+  });
+
+  chrome.storage.sync.get(["font"], function (result) {
+    document.getElementById("main-option").style.fontFamily = result.font;
+    document.getElementById("font").value = result.font;
+  });
 }
 
-function setStyles() {
-  var currentHeadBgColor = localStorage.getItem("headbgcolor");
-  var currentBodybgcolor = localStorage.getItem("bodybgcolor");
-  var currentFooterbgcolor = localStorage.getItem("footerbgcolor");
-  var currentFont = localStorage.getItem("font");
+document.addEventListener("DOMContentLoaded", function () {
+  chrome.storage.sync.get(["headbgcolor"], function (result) {
+    if (Object.keys(result).length) {
+      document.getElementById("panel4").style.backgroundColor =
+        result.headbgcolor;
+      document.getElementById("headbgcolor").value = result.headbgcolor;
+    }
+  });
 
-  document.getElementById("headbgcolor").value = currentHeadBgColor;
-  document.getElementById("bodybgcolor").value = currentBodybgcolor;
-  document.getElementById("footerbgcolor").value = currentFooterbgcolor;
-  document.getElementById("font").value = currentFont;
+  chrome.storage.sync.get(["bodybgcolor"], function (result) {
+    if (Object.keys(result).length) {
+      document.getElementById("main-option").style.backgroundColor =
+        result.bodybgcolor;
+      document.getElementById("bodybgcolor").value = result.bodybgcolor;
+    }
+  });
 
-  head1.style.backgroundColor = currentHeadBgColor;
-  head2.style.backgroundColor = currentHeadBgColor;
-  head3.style.backgroundColor = currentHeadBgColor;
-  head4.style.backgroundColor = currentHeadBgColor;
-  body.style.backgroundColor = currentBodybgcolor;
-  footer_new.style.backgroundColor = currentFooterbgcolor;
-  body.style.fontFamily = currentFont;
-}
+  chrome.storage.sync.get(["footerbgcolor"], function (result) {
+    if (Object.keys(result).length) {
+      document.getElementById("footerbgcolor").value = result.footerbgcolor;
+    }
+  });
 
-headbgcolor.onchange = populateStorage;
-bodybgcolor.onchange = populateStorage;
-footerbgcolor.onchange = populateStorage;
-font.onchange = populateStorage;
+  chrome.storage.sync.get(["font"], function (result) {
+    if (Object.keys(result).length) {
+      document.getElementById("main-option").style.fontFamily = result.font;
+      document.getElementById("font").value = result.font;
+    }
+  });
+});

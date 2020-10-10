@@ -2,8 +2,8 @@
     "manifest_version": 2,
     "name": "Perfect New Tab",
     "description": "This extension replaces the new tab page with a more feature-rich and lightweight page.",
-    "homepage_url": "https://github.com/ankitgaurav/Perfect-New-Tab",
-    "version": "5.3",
+    "homepage_url": "https://github.com/theankitgaurav/perfect-new-tab",
+    "version": "6.0",
     "options_page": "src/options.html",
     "chrome_url_overrides": {
         "newtab": "src/index.html"

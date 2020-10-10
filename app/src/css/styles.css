@@ -181,9 +181,21 @@ transform: translate(-50%, -50%);
     text-align: center;
     padding: 10px;
 }
+
 #customization_div input {
     margin-right: 1vh;
-  }
+}
+
+#customize {
+    background-color: transparent;
+    color: white;
+    padding: 10px;
+    text-align: right;
+}
+
+
+
+
   
 /* customization css end here */
 

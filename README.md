@@ -1,6 +1,6 @@
 <h1 align="center">welcome to Perfect-New-Tab 👋</h1>
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-5.3-blue.svg?cacheSeconds=2592000" />
+  <img alt="Version" src="https://img.shields.io/badge/version-6.0-blue.svg?cacheSeconds=2592000" />
   <img alt="Maintenance" src="https://img.shields.io/badge/Maintained-yes-blue.svg" />
   <a href="https://github.com/alok722/elegant-tab/blob/master/LICENSE" target="_blank">
   </a>
@@ -23,6 +23,9 @@ A Google Chrome extension that replaces the existing new tab with a more useful 
 + A built-in simple Todos manager 
 + Change colors as your eye pleases
 + Very Lightweight
+
+## Changelog
+Version 6.0: Customization support added
 
 ## 🤝 contributing
 Comments and improvements are more than welcome!

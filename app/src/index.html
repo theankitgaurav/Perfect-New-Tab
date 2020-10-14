@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <div id="main" class="center__xy__parent">
+    <div id="main" class="center__xy__parent main">
         <div id="customize"  v-on:click="openOptions" @mouseover="showText" @mouseout="hideText">
             <span id="customize-text" v-bind:style="{ visibility: showCustomizeText}">Customize</span>
             <span class="glyphicon glyphicon-cog" id="customize-btn"></span>
@@ -148,6 +148,8 @@
         </div>
     </div>
     <script type="text/javascript" src="../static/js/vue.js"></script>
+    <script type="text/javascript" src="js/globals.js"></script>
+    <script type="text/javascript" src="js/utils.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript" src="js/most-visited.js"></script>
     <script type="text/javascript" src="js/recent-bookmarks.js"></script>

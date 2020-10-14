@@ -1,85 +1,41 @@
-document.getElementById("save").addEventListener("click", populateStorage);
-
-function populateStorage() {
-  chrome.storage.sync.set(
-    { headbgcolor: document.getElementById("headbgcolor").value },
-    function () {
-      console.log(
-        "headbgcolor " + document.getElementById("headbgcolor").value
-      );
-    }
-  );
-  chrome.storage.sync.set(
-    { bodybgcolor: document.getElementById("bodybgcolor").value },
-    function () {
-      console.log(
-        "bodybgcolor " + document.getElementById("bodybgcolor").value
-      );
-    }
-  );
-  chrome.storage.sync.set(
-    { footerbgcolor: document.getElementById("footerbgcolor").value },
-    function () {
-      console.log(
-        "footerbgcolor " + document.getElementById("footerbgcolor").value
-      );
-    }
-  );
-  chrome.storage.sync.set(
-    { font: document.getElementById("font").value },
-    function () {
-      console.log("font " + document.getElementById("font").value);
-    }
-  );
-
-  chrome.storage.sync.get(["headbgcolor"], function (result) {
-    document.getElementById("panel4").style.backgroundColor =
-      result.headbgcolor;
-    document.getElementById("headbgcolor").value = result.headbgcolor;
-  });
-
-  chrome.storage.sync.get(["bodybgcolor"], function (result) {
-    document.getElementById("main-option").style.backgroundColor = result.bodybgcolor;
-    document.getElementById("bodybgcolor").value = result.bodybgcolor;
-  });
-
-  chrome.storage.sync.get(["footerbgcolor"], function (result) {
-    document.getElementById("footerbgcolor").value = result.footerbgcolor;
-  });
-
-  chrome.storage.sync.get(["font"], function (result) {
-    document.getElementById("main-option").style.fontFamily = result.font;
-    document.getElementById("font").value = result.font;
+// Function to reset the Chrome StorageArea in one go
+const resetAll = function () {
+  chrome.storage.sync.clear(function () {
+    log("Preferences have been reset")
   });
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  chrome.storage.sync.get(["headbgcolor"], function (result) {
-    if (Object.keys(result).length) {
-      document.getElementById("panel4").style.backgroundColor =
-        result.headbgcolor;
-      document.getElementById("headbgcolor").value = result.headbgcolor;
+// The customization component
+const customizationComponent = new Vue({
+  el: "#main-option",
+  data: {
+    prefs: defaultPreferences,
+    fontList: ['Raleway', 'Mulish', 'Roboto', 'Serif'],
+  },
+  methods: {
+    initPrefs: async function () {
+      let storedPrefs = await getStorageData('perfect_new_tab_prefs')
+      if (!storedPrefs || storedPrefs.isEmpty()) {
+        debug("Nothing was stored initially")
+        self.prefs = defaultPreferences;
+        const res = await setStorageData({ perfect_new_tab_prefs: self.prefs })
+      } else {
+        debug("Preferences fetched from Store", storedPrefs)
+        self.prefs = storedPrefs['perfect_new_tab_prefs']
+      }
+    },
+    reset: function () {
+      const self = this
+      resetAll()
+    },
+    save: async function () {
+      const self = this
+      const res = await setStorageData({ perfect_new_tab_prefs: self.prefs })
+      debug("saved", res, self.prefs)
     }
-  });
-
-  chrome.storage.sync.get(["bodybgcolor"], function (result) {
-    if (Object.keys(result).length) {
-      document.getElementById("main-option").style.backgroundColor =
-        result.bodybgcolor;
-      document.getElementById("bodybgcolor").value = result.bodybgcolor;
-    }
-  });
-
-  chrome.storage.sync.get(["footerbgcolor"], function (result) {
-    if (Object.keys(result).length) {
-      document.getElementById("footerbgcolor").value = result.footerbgcolor;
-    }
-  });
-
-  chrome.storage.sync.get(["font"], function (result) {
-    if (Object.keys(result).length) {
-      document.getElementById("main-option").style.fontFamily = result.font;
-      document.getElementById("font").value = result.font;
-    }
-  });
+  },
+  created: async function () {
+    const self = this;
+    self.initPrefs()
+  }
 });

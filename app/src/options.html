@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../static/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/option-styles.css">
-    <title>Customization</title>
+    <title>Preferences</title>
 </head>
 
 <body>
@@ -23,17 +23,15 @@
                         <form>
                             <div id="customization_div">
                                 <label for="headbgcolor">Panel:</label>
-                                <input type="color" id="headbgcolor" list="colorList" value="#625772">
+                                <input type="color" id="headbgcolor" list="colorList" v-model="prefs.ui.headbgcolor" :value="prefs.ui.headbgcolor">
                                 <label for="bodybgcolor">Body:</label>
-                                <input type="color" id="bodybgcolor" list="colorList" value="#537780">
+                                <input type="color" id="bodybgcolor" list="colorList" v-model="prefs.ui.bodybgcolor" :value="prefs.ui.bodybgcolor">
                                 <label for="footerbgcolor">Footer:</label>
-                                <input type="color" id="footerbgcolor" list="colorList" value="#4A2C2C">
+                                <input type="color" id="footerbgcolor" list="colorList" v-model="prefs.ui.footerbgcolor" :value="prefs.ui.footerbgcolor">
                                 <label for="font">Font</label>
-                                <select id="font">
-                                    <option value="'Raleway', sans-serif" selected>Raleway</option>
-                                    <option value="Mulish">Mulish</option>
-                                    <option value="Roboto">Roboto italic</option>
-                                    <option value="'serif">Serif</option>
+                                <select id="font" v-model="prefs.ui.font">
+                                    <option v-for="font in fontList" :value="font">{{ font }}
+                                    </option>
                                 </select>
                             </div>
                             <datalist id="colorList">
@@ -56,11 +54,15 @@
         <div class="container">
             <div class="row">
                 <div class="col text-center">
-                    <button id="save" class="button button2">Save</button>
+                    <button id="save" class="button button2" v-on:click="save">Save</button>
+                    <button id='reset-btn' class="button button2" v-on:click="reset">Reset</button>
                 </div>
             </div>
         </div>
     </div>
+    <script type="text/javascript" src="../static/js/vue.js"></script>
+    <script type="text/javascript" src="js/globals.js"></script>
+    <script type="text/javascript" src="js/utils.js"></script>
     <script type="text/javascript" src="js/customization.js"></script>
 </body>
 

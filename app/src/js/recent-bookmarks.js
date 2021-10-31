@@ -7,34 +7,49 @@ class BookmarkItem {
     }
 }
 
-const MIN_ITEMS = 20
-const MAX_ITEMS = 1000;
-
 const RecentBookmarksComponent = new Vue({
     el: '#recent-bookmarks',
     mixins: [myMixin],
     data: {
         recentBookmarksArray: [],
-        defaultNumberOfItems: MIN_ITEMS,
+        bookmarksPrefs: defaultPreferences.bookmarks,
+        itemsToDisplay: defaultPreferences.bookmarks.minItems,
         showAll: false
     },
     watch: {
         showAll: function(showAll) {
-            this.defaultNumberOfItems = (!!showAll) ? MAX_ITEMS : MIN_ITEMS;
+            this.itemsToDisplay = (!!showAll) ? this.bookmarksPrefs.maxItems : this.bookmarksPrefs.minItems;
             this.getRecentBookmarks();
         }
     },
-    created: function() {
-        this.getRecentBookmarks();
+    created: async function() {
+        let storedPrefs = await getStorageData('perfect_new_tab_prefs')
+        const self = this;
+        self.addListener();
+        self.bookmarksPrefs = storedPrefs && storedPrefs.perfect_new_tab_prefs && storedPrefs.perfect_new_tab_prefs.bookmarks
+            ? storedPrefs.perfect_new_tab_prefs.bookmarks : defaultPreferences.bookmarks;
+        self.itemsToDisplay = self.bookmarksPrefs.minItems;
+        self.getRecentBookmarks();
     },
     methods: {
         deleteItem: function(bookmarkId) {
             chrome.bookmarks.remove(bookmarkId);
             this.getRecentBookmarks();
         },
+        addListener: function () {
+            const self = this
+            chrome.storage.onChanged.addListener((changes, area) => {
+                const changedPrefs = changes.perfect_new_tab_prefs;
+                if (changedPrefs && changedPrefs.newValue) {
+                    self.bookmarksPrefs = changedPrefs.newValue.bookmarks;
+                    self.itemsToDisplay = (!!self.showAll) ? self.bookmarksPrefs.maxItems : self.bookmarksPrefs.minItems;
+                    self.getRecentBookmarks();
+                }
+            });
+        },
         getRecentBookmarks: function() {
             const self = this
-            chrome.bookmarks.getRecent(self.defaultNumberOfItems, (results) => {
+            chrome.bookmarks.getRecent(parseInt(self.itemsToDisplay), (results) => {
                 self.recentBookmarksArray = results.map(el=> new BookmarkItem(el));
             })
         }

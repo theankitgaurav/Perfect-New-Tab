@@ -23,16 +23,20 @@
                         <form>
                             <div id="customization_div">
                                 <label for="headbgcolor">Panel:</label>
-                                <input type="color" id="headbgcolor" list="colorList" v-model="prefs.ui.headbgcolor" :value="prefs.ui.headbgcolor">
+                                <input type="color" id="headbgcolor" list="colorList" v-model="prefs.ui.headbgcolor" :value="prefs.ui.headbgcolor"><br/>
                                 <label for="bodybgcolor">Body:</label>
-                                <input type="color" id="bodybgcolor" list="colorList" v-model="prefs.ui.bodybgcolor" :value="prefs.ui.bodybgcolor">
+                                <input type="color" id="bodybgcolor" list="colorList" v-model="prefs.ui.bodybgcolor" :value="prefs.ui.bodybgcolor"><br/>
                                 <label for="footerbgcolor">Footer:</label>
-                                <input type="color" id="footerbgcolor" list="colorList" v-model="prefs.ui.footerbgcolor" :value="prefs.ui.footerbgcolor">
-                                <label for="font">Font</label>
+                                <input type="color" id="footerbgcolor" list="colorList" v-model="prefs.ui.footerbgcolor" :value="prefs.ui.footerbgcolor"><br/>
+                                <label for="font">Font:</label>
                                 <select id="font" v-model="prefs.ui.font">
                                     <option v-for="font in fontList" :value="font">{{ font }}
                                     </option>
-                                </select>
+                                </select><br/>
+                                <label for="minItems">Min Bookmarks:</label>
+                                <input type="text" id="minItems" v-model="prefs.bookmarks.minItems" :value="prefs.bookmarks.minItems"><br/>
+                                <label for="maxItems">Max Bookmarks:</label>
+                                <input type="text" id="maxItems" v-model="prefs.bookmarks.maxItems" :value="prefs.bookmarks.maxItems">
                             </div>
                             <datalist id="colorList">
                                 <option value="#93B7BE">Dark Sky Blue</option>

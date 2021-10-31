@@ -1,5 +1,6 @@
 <h1 align="center">welcome to Perfect-New-Tab 👋</h1>
 <p>
+  <a href="https://www.producthunt.com/posts/perfect-new-tab?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-perfect-new-tab" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=125422&theme=dark" alt="Perfect New Tab - More feature-rich and lightweight new tab 🌟 | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a><br/>
   <img alt="Version" src="https://img.shields.io/badge/version-6.0.1-blue.svg?cacheSeconds=2592000" />
   <img alt="Maintenance" src="https://img.shields.io/badge/Maintained-yes-blue.svg" />
   <a href="https://github.com/theankitgaurav/Perfect-New-Tab/blob/master/LICENSE" target="_blank"></a>

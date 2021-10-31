@@ -26,8 +26,8 @@ const RecentBookmarksComponent = new Vue({
         let storedPrefs = await getStorageData('perfect_new_tab_prefs')
         const self = this;
         self.addListener();
-        self.bookmarksPrefs = storedPrefs.perfect_new_tab_prefs.bookmarks ? storedPrefs.perfect_new_tab_prefs.bookmarks :
-            defaultPreferences.bookmarks;
+        self.bookmarksPrefs = storedPrefs && storedPrefs.perfect_new_tab_prefs && storedPrefs.perfect_new_tab_prefs.bookmarks
+            ? storedPrefs.perfect_new_tab_prefs.bookmarks : defaultPreferences.bookmarks;
         self.itemsToDisplay = self.bookmarksPrefs.minItems;
         self.getRecentBookmarks();
     },

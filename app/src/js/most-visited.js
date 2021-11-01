@@ -1,15 +1,6 @@
-class TopSite {
-    constructor(MostVisitedURL) {
-        this.title = MostVisitedURL.title;
-        this.url = MostVisitedURL.url;
-        this.faviconUrl = `chrome://favicon/${MostVisitedURL.url}`;
-        this.hidden = false;
-    }
-}
-
 const MostVisitedSitesComponent = new Vue({
     el: '#frequent-sites',
-    mixins: [myMixin],
+    mixins: [mixins],
     data: {
         topSitesArray: [], // Shape: [Topsite]
         showAll: false
@@ -36,8 +27,7 @@ const MostVisitedSitesComponent = new Vue({
     created: function() {
         const self = this;
         chrome.topSites.get((topSites) => {
-
-            const topSitesArr = (topSites || []).map(MostVisitedURL => new TopSite(MostVisitedURL));
+            const topSitesArr = (topSites || []).map(mostVisitedURL => new TopSite(mostVisitedURL));
 
             chrome.storage.sync.get('perfect_new_tab_hidden_sites', function(result) {
                 if (chrome.runtime.lastError) {
@@ -58,3 +48,12 @@ const MostVisitedSitesComponent = new Vue({
 
     }
 })
+
+class TopSite {
+    constructor(MostVisitedURL) {
+        this.title = MostVisitedURL.title;
+        this.url = MostVisitedURL.url;
+        this.faviconUrl = `chrome://favicon/${MostVisitedURL.url}`;
+        this.hidden = false;
+    }
+}

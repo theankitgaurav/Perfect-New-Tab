@@ -1,5 +1,4 @@
 const APP_NAME = 'Perfect New Tab'
-const PREFS_KEY = 'perfect_new_tab_prefs';
 const defaultPreferences = {
     ui: {
         headbgcolor: '#625772',

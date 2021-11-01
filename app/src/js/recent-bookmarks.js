@@ -1,15 +1,6 @@
-class BookmarkItem {
-    constructor(bookmarkTreeNode) {
-        this.title = bookmarkTreeNode.title;
-        this.url = bookmarkTreeNode.url;
-        this.faviconUrl = 'chrome://favicon/' + bookmarkTreeNode.url;
-        this.id = bookmarkTreeNode.id;
-    }
-}
-
 const RecentBookmarksComponent = new Vue({
     el: '#recent-bookmarks',
-    mixins: [myMixin],
+    mixins: [mixins],
     data: {
         recentBookmarksArray: [],
         bookmarksPrefs: defaultPreferences.bookmarks,
@@ -49,9 +40,18 @@ const RecentBookmarksComponent = new Vue({
         },
         getRecentBookmarks: function() {
             const self = this
-            chrome.bookmarks.getRecent(parseInt(self.itemsToDisplay), (results) => {
+            chrome.bookmarks.getRecent(self.itemsToDisplay, results => {
                 self.recentBookmarksArray = results.map(el=> new BookmarkItem(el));
             })
         }
     }
 })
+
+class BookmarkItem {
+    constructor(bookmarkTreeNode) {
+        this.title = bookmarkTreeNode.title;
+        this.url = bookmarkTreeNode.url;
+        this.faviconUrl = 'chrome://favicon/' + bookmarkTreeNode.url;
+        this.id = bookmarkTreeNode.id;
+    }
+}

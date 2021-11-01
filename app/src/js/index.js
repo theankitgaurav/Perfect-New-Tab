@@ -1,19 +1,18 @@
-var myMixin = {
+const mixins = {
   methods: {
-    openLink: function (url) {
-      chrome.tabs.update({ 'url': url, 'selected': true })
-    }
+    openLink
   }
-}
+};
 
 // Footer logic
-var footer = new Vue({
+const footer = new Vue({
   el: '#footer',
-  mixins: [myMixin]
-})
+  mixins: [mixins],
+});
 
-var customizeMenuComponent = new Vue({
+const customizeMenuComponent = new Vue({
   el: '#customize',
+  mixins: [mixins],
   data: {
     showCustomizeText: 'hidden',
     prefs: defaultPreferences
@@ -26,7 +25,6 @@ var customizeMenuComponent = new Vue({
       this.showCustomizeText = 'hidden'
     },
     openOptions: function () {
-      const self = this;
       if (chrome.runtime.openOptionsPage) {
         chrome.runtime.openOptionsPage()
       } else {
@@ -51,7 +49,7 @@ var customizeMenuComponent = new Vue({
       const self = this
       debug("before apply function", self.prefs)
       document.querySelectorAll(".panel-heading").forEach(el =>
-        el.style.backgroundColor = self.prefs.ui.headbgcolor
+          el.style.backgroundColor = self.prefs.ui.headbgcolor
       )
       document.querySelector(".main").style.backgroundColor = self.prefs.ui.bodybgcolor;
       document.querySelector("#footer").style.backgroundColor = self.prefs.ui.footerbgcolor;
@@ -62,10 +60,10 @@ var customizeMenuComponent = new Vue({
     const self = this;
     self.addListener()
     let storedPrefs = await getStorageData('perfect_new_tab_prefs')
-    self.prefs = storedPrefs.perfect_new_tab_prefs? storedPrefs.perfect_new_tab_prefs : defaultPreferences
+    self.prefs = storedPrefs.perfect_new_tab_prefs ? storedPrefs.perfect_new_tab_prefs : defaultPreferences
     self.applyCustomization()
   }
-})
+});
 
 
 

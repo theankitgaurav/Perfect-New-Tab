@@ -10,6 +10,8 @@ Object.prototype.isEmpty = function () {
     return Object.keys(this).length == 0
 }
 
+const openLink = url => chrome.tabs.update({'url': url, 'selected': true})
+
 const getStorageData = async key =>
   new Promise((resolve, reject) =>
     chrome.storage.sync.get(key, result =>

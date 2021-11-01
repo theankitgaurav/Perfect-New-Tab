@@ -1,12 +1,3 @@
-class TodoItem {
-    constructor (todoText, done = false) {
-        this.text = todoText;
-        this.done = done;
-        this.deleted = false;
-        this.timeAdded = Date.now();
-    }
-}
-
 const TodosComponent = new Vue({
     el: '#todos_app',
     data: {
@@ -29,15 +20,10 @@ const TodosComponent = new Vue({
         },
         doneTodos: function () {
             return this.todos.filter(el => !!el.done && !el.deleted);
-        },
-        userTodos: function () {
-            return this.todos.sort((a, b) => {
-                return !!a.done - !!b.done;
-            })
         }
     },
     created: function() {
-        var self = this
+        const self = this;
         chrome.storage.sync.get('perfect_new_tab_todos', function(items) {
             if (chrome.runtime.lastError) {
                 console.error("Runtime Error while fetching data from Chrome Storage", chrome.runtime.lastError);
@@ -48,7 +34,7 @@ const TodosComponent = new Vue({
     },
     methods: {
         addTodo: function(todoText) {
-            var text = this.todoText && this.todoText.trim();
+            const text = this.todoText && this.todoText.trim();
             if (!!text) {
                 this.todos.unshift(new TodoItem(text));
             }
@@ -64,3 +50,11 @@ const TodosComponent = new Vue({
         }
     }
 })
+
+class TodoItem {
+    constructor (todoText, done = false) {
+        this.text = todoText;
+        this.done = done;
+        this.deleted = false;
+    }
+}

@@ -1,13 +1,7 @@
-// Function to reset the Chrome StorageArea in one go
-const resetAll = function () {
-  chrome.storage.sync.clear(function () {
-    log("Preferences have been reset")
-  });
-}
-
 // The customization component
 const customizationComponent = new Vue({
   el: "#main-option",
+  mixins: [mixins],
   data: {
     prefs: defaultPreferences,
     fontList: ['Raleway', 'Mulish', 'Roboto', 'Serif'],
@@ -25,8 +19,7 @@ const customizationComponent = new Vue({
       }
     },
     reset: function () {
-      const self = this
-      resetAll()
+      chrome.storage.sync.clear(() => log("Preferences have been reset"));
     },
     save: async function () {
       const self = this
@@ -36,6 +29,6 @@ const customizationComponent = new Vue({
   },
   created: async function () {
     const self = this;
-    self.initPrefs()
+    await self.initPrefs()
   }
 });
